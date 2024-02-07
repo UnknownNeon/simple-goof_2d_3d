@@ -57,11 +57,8 @@ void goof::run()
 		window.processInput(camera);
 		sha.setMat4("view", camera.lookAt());
 		
-		gf_render::Draw(cube,goof::BLUE, glm::vec3(0.0f, 0.0f, 0.0f),sha);
-		gf_render::Draw(cube, goof::RED, glm::vec3(2.0f, 1.5f, 0.0f),sha);
-
-		gf_render::Draw(triangle, goof::BLUE,location, sha);
-		gf_render::Draw(rect, goof::BLUE, glm::vec3(-1.0f, 1.5f, 0.0f), sha);
+		//gf_render::Draw(cube,goof::BLUE, glm::vec3(0.0f, 0.0f, 0.0f),sha);
+		
 
 		//dearimgui
 		ImGui_ImplOpenGL3_NewFrame();
