@@ -65,6 +65,7 @@ void gf_render::setWireframeMode(bool set)
 
 gf_render::Triangle::Triangle()
 {
+    set_name(name);
 
     float vertices[] = {
     -0.5f, -0.5f, 0.0f, // left  
@@ -96,6 +97,7 @@ gf_render::Triangle::~Triangle()
 
 gf_render::Rect::Rect()
 {
+    set_name(name);
     float vertices[] = {
     0.5f, 0.5f, 0.0f,       // top right
     0.5f, -0.5f, 0.0f,      // bottom right
@@ -138,6 +140,8 @@ gf_render::Rect::~Rect()
 
 
 gf_render::Cube::Cube() {
+    set_name(name);
+
     float vertices[] = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 1.0f, 0.0f,

@@ -12,26 +12,35 @@ namespace gf_render {
 
 	public:
 		shapes() = default;
+		std::string name = "shape";
+
+		std::vector<glm::vec3> loc_vec_shape;
+		std::vector<glm::vec3>::iterator erase_iter;
+
 		inline unsigned int getVBO() { return VBO; };
 		inline unsigned int getVAO() { return VAO; };
 		inline unsigned int getEBO() { return EBO; };
 		inline unsigned int getSize_Vertices() { return size_vertices; };
+		inline void set_name(std::string name) { this->name = name; }
 	};
 
 	class Triangle : public shapes {
 	public:
+		std::string name = "Triangle";
 		Triangle();
 		~Triangle();
 	};
 
 	class Rect : public shapes {
 	public:
+		std::string name = "Rectangle";
 		Rect();
 		~Rect();
 	};
 
 	class Cube :public shapes {
 	public:
+		std::string name = "Cube";
 		Cube();
 		~Cube();
 	};

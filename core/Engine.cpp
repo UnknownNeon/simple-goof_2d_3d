@@ -43,8 +43,8 @@ void goof::run()
 
 
 	//
-	std::vector<glm::vec3> loc_vec;
-	std::vector<glm::vec3>::iterator erase_iter;
+	/*std::vector<glm::vec3> loc_vec_cube;
+	std::vector<glm::vec3>::iterator erase_iter;*/
 
 	//imgui
 	/////////////////////GAAAAAAAAAAAAAAME LOOOOOOOOOOOOOOOOOOOOOOOOOOP//////////////////////////////////////
@@ -95,54 +95,11 @@ void goof::run()
 				goof::setViewMode(sha, orthographic);
 
 
-
-
-			ImGui::SliderFloat("Triangle X", &location[0], -2.f * i, 2.f * i);
-			ImGui::SliderFloat("Triangle Y", &location[1], -1.5f * i, 1.5f * i);
-
 			if (ImGui::Button("Reset Camera"))
 				camera.reset_camera();
 
-
-			if (ImGui::Button("Add cube"))
-				loc_vec.push_back(glm::vec3(0.f, 0.f, 0.f));
-
-			if (ImGui::Button("ERASE ALL ")) {
-				loc_vec.clear();
-			}
-
-			erase_iter = loc_vec.begin();
-			std::vector<bool> delete_flags(loc_vec.size(), false);
-
-			for (int n = 0; n < loc_vec.size(); n++) {
-
-				ImGui::Text("item : %d", n);
-				ImGui::SameLine();
-
-
-				std::string  temp = std::to_string(n);
-
-				ImGui::SliderFloat(temp.c_str(), glm::value_ptr(loc_vec[n]), -2.5f * i, 2.5f * i);
-				ImGui::SameLine();
-				if (ImGui::Button(("Delete" + temp).c_str())) {
-					//loc_vec.erase(std::next(loc_vec.begin() , n));
-					delete_flags[n] = true;
-				
-				}
-
-				gf_render::Draw(cube, goof::RED, loc_vec[n], sha);
-			}
-
-			for (int n = 0; n < loc_vec.size(); ++n) {
-				if (delete_flags[n]) {
-					erase_iter = loc_vec.erase(erase_iter);
-				}
-				else {
-					++erase_iter;
-				}
-			}
-			//ImGui::SameLine();
-			//ImGui::Text("counter = %d", counter);
+			goof::IMGUI::render_primitives(triangle,sha);
+			goof::IMGUI::render_primitives(cube, sha);
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
@@ -177,4 +134,45 @@ void goof::IMGUI::Destroy()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
+{
+
+	if (ImGui::Button(("Add "+ cube.name).c_str()))
+		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
+
+	ImGui::SameLine();
+	if (ImGui::Button(("ERASE ALL : " + cube.name).c_str())) {
+		cube.loc_vec_shape.clear();
+	}
+
+	//Inittializing the vector iterator and falgs to delete deleted objs
+	cube.erase_iter = cube.loc_vec_shape.begin();
+	std::vector<bool> delete_flags(cube.loc_vec_shape.size(), false);
+
+	//ADD multiple objects:
+	for (int n = 0; n < cube.loc_vec_shape.size(); n++) {
+
+		ImGui::Text("item : %d", n);
+		ImGui::SameLine();
+		std::string  temp = std::to_string(n);
+
+		ImGui::SliderFloat3((cube.name+temp).c_str(), glm::value_ptr(cube.loc_vec_shape[n]), -2.5f * i, 2.5f * i);
+		ImGui::SameLine();
+		if (ImGui::Button(("Delete" + cube.name + temp).c_str())) {
+			delete_flags[n] = true;
+		}
+		gf_render::Draw(cube, goof::RED, cube.loc_vec_shape[n], sha);
+	}
+
+	//delete multiple objects
+	for (int n = 0; n < cube.loc_vec_shape.size(); ++n) {
+		if (delete_flags[n]) {
+			cube.erase_iter = cube.loc_vec_shape.erase(cube.erase_iter);
+		}
+		else {
+			++cube.erase_iter;
+		}
+	}
 }
