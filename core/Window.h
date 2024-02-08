@@ -3,8 +3,8 @@
 #include "GLFW/glfw3.h"
 
 
-#define W_HEIGHT 400
-#define W_WIDTH 800
+#define W_HEIGHT 768
+#define W_WIDTH 1366
 
 #include <iostream>
 #include "Camera.h"

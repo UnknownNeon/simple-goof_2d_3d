@@ -94,12 +94,16 @@ void goof::run()
 			if (current_item == items[1])
 				goof::setViewMode(sha, orthographic);
 
+			//@TODO Impelememting saving and loading states
+			if (ImGui::Button("Save to file"));
 
 			if (ImGui::Button("Reset Camera"))
 				camera.reset_camera();
 
 			goof::IMGUI::render_primitives(triangle,sha);
 			goof::IMGUI::render_primitives(cube, sha);
+
+
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
@@ -150,7 +154,9 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 	//Inittializing the vector iterator and falgs to delete deleted objs
 	cube.erase_iter = cube.loc_vec_shape.begin();
 	std::vector<bool> delete_flags(cube.loc_vec_shape.size(), false);
+	
 
+	
 	//ADD multiple objects:
 	for (int n = 0; n < cube.loc_vec_shape.size(); n++) {
 
@@ -163,7 +169,10 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 		if (ImGui::Button(("Delete" + cube.name + temp).c_str())) {
 			delete_flags[n] = true;
 		}
-		gf_render::Draw(cube, goof::RED, cube.loc_vec_shape[n], sha);
+		//color change:
+		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index));
+		//colorend
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index), cube.loc_vec_shape[n], sha);
 	}
 
 	//delete multiple objects
@@ -175,4 +184,6 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 			++cube.erase_iter;
 		}
 	}
+
+	
 }

@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-void gf_render::Draw(shapes& tri, const float COLOUR[], glm::vec3 Position, Shader& shader)
+void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader)
 {
     if (shader.getShaderID() != -1) {
 
@@ -24,14 +24,10 @@ void gf_render::Draw(shapes& tri, const float COLOUR[], glm::vec3 Position, Shad
         }
 
     }
-    else{
-        GLint prog = 0;
-        glGetIntegerv(GL_CURRENT_PROGRAM, &prog);
-        int colorLocation = glGetUniformLocation(prog, "myColor");
-        glUniform4fv(colorLocation, 1, COLOUR);
-       
+    else{ 
+        shader.setColor(COLOUR);
 
-        if (tri.getEBO() != 0) {
+               if (tri.getEBO() != 0) {
             glBindVertexArray(tri.getVAO());
             glDrawElements(GL_TRIANGLES, tri.getSize_Vertices(), GL_UNSIGNED_INT, 0);
             glBindVertexArray(0);
