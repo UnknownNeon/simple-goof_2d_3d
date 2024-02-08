@@ -143,8 +143,11 @@ void goof::IMGUI::Destroy()
 void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 {
 
-	if (ImGui::Button(("Add "+ cube.name).c_str()))
+	if (ImGui::Button(("Add " + cube.name).c_str())) {
+
 		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
+		cube.color_index.push_back(glm::vec4(1.f, 0.f, 0.f , 1.f));
+	}
 
 	ImGui::SameLine();
 	if (ImGui::Button(("ERASE ALL : " + cube.name).c_str())) {
@@ -155,7 +158,8 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 	cube.erase_iter = cube.loc_vec_shape.begin();
 	std::vector<bool> delete_flags(cube.loc_vec_shape.size(), false);
 	
-
+	if(cube.loc_vec_shape.size() != 0)
+		ImGui::Begin(cube.name.c_str());
 	
 	//ADD multiple objects:
 	for (int n = 0; n < cube.loc_vec_shape.size(); n++) {
@@ -170,10 +174,14 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 			delete_flags[n] = true;
 		}
 		//color change:
-		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index));
+		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index[n]));
 		//colorend
-		gf_render::Draw(cube, glm::value_ptr(cube.color_index), cube.loc_vec_shape[n], sha);
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n], sha);
 	}
+
+
+	if (cube.loc_vec_shape.size() != 0)
+		ImGui::End();
 
 	//delete multiple objects
 	for (int n = 0; n < cube.loc_vec_shape.size(); ++n) {
@@ -184,6 +192,5 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 			++cube.erase_iter;
 		}
 	}
-
 	
 }

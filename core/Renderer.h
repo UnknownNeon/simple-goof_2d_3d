@@ -17,7 +17,7 @@ namespace gf_render {
 		std::vector<glm::vec3> loc_vec_shape;
 		std::vector<glm::vec3>::iterator erase_iter;
 
-		glm::vec4 color_index = glm::vec4(1.f,0.f,0.f,1.f);
+		std::vector<glm::vec4> color_index;
 
 		inline unsigned int getVBO() { return VBO; };
 		inline unsigned int getVAO() { return VAO; };
