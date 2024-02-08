@@ -1,4 +1,4 @@
-<h1> A Smallp project to explore how the graphics pipline works .#not_completed </h1>
+<h1> A Smallp project to explore how the graphics pipline works. #not_completed </h1>
 
 <h3>Functions in 3D and 2D</h3><br />
 Must have GLAD/GLEW and GLFW binded to project.<br />
