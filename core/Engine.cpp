@@ -187,6 +187,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 	for (int n = 0; n < cube.loc_vec_shape.size(); ++n) {
 		if (delete_flags[n]) {
 			cube.erase_iter = cube.loc_vec_shape.erase(cube.erase_iter);
+			cube.color_index.erase(std::next(cube.color_index.begin(), n));
 		}
 		else {
 			++cube.erase_iter;
