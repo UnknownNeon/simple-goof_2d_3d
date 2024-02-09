@@ -18,6 +18,7 @@ namespace gf_render {
 		std::vector<glm::vec3>::iterator erase_iter;
 
 		std::vector<glm::vec4> color_index;
+		std::vector<glm::vec3> object_scale;
 
 		inline unsigned int getVBO() { return VBO; };
 		inline unsigned int getVAO() { return VAO; };
@@ -49,7 +50,7 @@ namespace gf_render {
 
 	void Draw(shapes& tri , const float* COLOR = nullptr ,glm::vec3 Postion = glm::vec3(0.0f,0.0f,0.0f),
 					Shader& shader = nullShader,
-					glm::vec3 Scale =glm::vec3(1.0f,1.0f,1.0f));
+					glm::vec3 Scale =glm::vec3(1.0f));
 	void ClearScreen();
 	void setWireframeMode(bool set);
 }
