@@ -1,12 +1,13 @@
 #include "Renderer.h"
 
-void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader)
+void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale)
 {
     if (shader.getShaderID() != -1) {
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, Position);
-        shader.setMat4("model", model);
+      //  shader.setMat4("model", model);
+        shader.setMat4("model", glm::scale(model,Scale));
 
     }
 

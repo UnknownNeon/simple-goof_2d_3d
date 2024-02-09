@@ -176,7 +176,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 		//color change:
 		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index[n]));
 		//colorend
-		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n], sha);
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha);
 	}
 
 
