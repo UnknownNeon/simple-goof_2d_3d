@@ -2,9 +2,16 @@
 #include "Renderer.h"
 #include "GLFW/glfw3.h"
 
+#ifndef W_HEIGHT
+	#define W_HEIGHT 768
+#endif
+#ifndef W_WIDTH
+	#define W_WIDTH 1366
+#endif
+#ifndef WORLD_LENGTH
+	#define WORLD_LENGTH 10000
+#endif
 
-#define W_HEIGHT 768
-#define W_WIDTH 1366
 
 #include <iostream>
 #include "Camera.h"

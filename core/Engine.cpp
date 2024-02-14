@@ -3,7 +3,6 @@
 #include "imgui/imgui.h"
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
-#include <vector>
 
 
 void goof::setViewMode(Shader& shader, glm::mat4 MODE)
@@ -40,12 +39,6 @@ void goof::run()
 
 	glm::vec3 location = glm::vec3(0.f,0.f,0.f);
 
-
-
-	//
-	/*std::vector<glm::vec3> loc_vec_cube;
-	std::vector<glm::vec3>::iterator erase_iter;*/
-
 	//imgui
 	/////////////////////GAAAAAAAAAAAAAAME LOOOOOOOOOOOOOOOOOOOOOOOOOOP//////////////////////////////////////
 
@@ -67,7 +60,6 @@ void goof::run()
 		//----------------
 
 		{
-			static float f = 0.0f;
 
 			ImGui::Begin("Debug window game....");                        
 
@@ -95,13 +87,14 @@ void goof::run()
 				goof::setViewMode(sha, orthographic);
 
 			//@TODO Impelememting saving and loading states
-			if (ImGui::Button("Save to file"));
+			//if (ImGui::Button("Save to file"));
 
 			if (ImGui::Button("Reset Camera"))
 				camera.reset_camera();
 
 			goof::IMGUI::render_primitives(triangle,sha);
 			goof::IMGUI::render_primitives(cube, sha);
+			goof::IMGUI::render_primitives(rect, sha);
 
 
 
@@ -147,7 +140,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 
 		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
 		cube.color_index.push_back(glm::vec4(1.f, 0.f, 0.f , 1.f));
-		cube.object_scale.push_back(glm::vec3(1.f));
+		cube.object_scale.push_back(glm::vec3(50.f));
 	}
 
 	ImGui::SameLine();
@@ -169,11 +162,14 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 	for (int n = 0; n < cube.loc_vec_shape.size(); n++) {
 
 		ImGui::Text("item : %d", n);
-		ImGui::SameLine();
 		std::string  temp = std::to_string(n);
 
-		ImGui::SliderFloat3((cube.name+temp).c_str(), glm::value_ptr(cube.loc_vec_shape[n]), -2.5f * i, 2.5f * i);
-		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0 * i, 2.5f * i);
+		//ImGui::SliderFloat3((cube.name+temp).c_str(), glm::value_ptr(cube.loc_vec_shape[n]), -(float)W_WIDTH,(float)W_WIDTH);
+		ImGui::SliderFloat((cube.name + temp + "X").c_str(), &(cube.loc_vec_shape[n].x),0.f, (float)WORLD_LENGTH);
+		ImGui::SliderFloat((cube.name + temp + "Y").c_str(),&(cube.loc_vec_shape[n].y),0.f, (float)WORLD_LENGTH);
+		ImGui::SliderFloat((cube.name + temp + "Z").c_str(), &(cube.loc_vec_shape[n].z), 0.f, (float)WORLD_LENGTH);
+		//scaling
+		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0.f , (float)W_WIDTH);
 
 		ImGui::SameLine();
 		if (ImGui::Button(("Delete" + cube.name + temp).c_str())) {

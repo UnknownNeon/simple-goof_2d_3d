@@ -88,7 +88,7 @@ void  _Window::processInput(goof::Camera& camera,GLFWwindow* window )
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	float cameraSpeed = 0.1f;
+	float cameraSpeed = 1.f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera.cameraPos += cameraSpeed * camera.cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
