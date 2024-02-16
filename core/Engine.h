@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Shader.h"
 #include "Camera.h"
+#include "Entity.h"
 #include "Window.h"
-
 
 
 namespace goof {

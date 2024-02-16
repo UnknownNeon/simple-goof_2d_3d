@@ -26,8 +26,8 @@ void goof::run()
 	gf_render::Rect rect;
 	gf_render::Cube cube;
  
-	goof::Camera camera;
-	
+	//goof::Camera camera;
+	goof::Entity player(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
 
 	//IMGUI STATES:
 	goof::IMGUI::Init(window.getWindow());
@@ -37,8 +37,6 @@ void goof::run()
 	const char* items[2] = {  "Prespective [3D]", "Orthographic [2D]" };
 	static const char* current_item = items[1];
 
-	glm::vec3 location = glm::vec3(0.f,0.f,0.f);
-
 	//imgui
 	/////////////////////GAAAAAAAAAAAAAAME LOOOOOOOOOOOOOOOOOOOOOOOOOOP//////////////////////////////////////
 
@@ -47,11 +45,9 @@ void goof::run()
 
 		gf_render::ClearScreen();
 
-		window.processInput(camera);
-		sha.setMat4("view", camera.lookAt());
-		
-		//gf_render::Draw(cube,goof::BLUE, glm::vec3(0.0f, 0.0f, 0.0f),sha);
-		
+		window.processInput(player.follow_camera);
+		player.update_pos(player.follow_camera.cameraPos.x, -player.follow_camera.cameraPos.y, player.follow_camera.cameraPos.z,sha);
+	
 
 		//dearimgui
 		ImGui_ImplOpenGL3_NewFrame();
@@ -90,7 +86,7 @@ void goof::run()
 			//if (ImGui::Button("Save to file"));
 
 			if (ImGui::Button("Reset Camera"))
-				camera.reset_camera();
+				player.follow_camera.reset_camera();
 
 			goof::IMGUI::render_primitives(triangle,sha);
 			goof::IMGUI::render_primitives(cube, sha);

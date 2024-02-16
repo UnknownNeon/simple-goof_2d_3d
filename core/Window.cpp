@@ -102,3 +102,4 @@ void  _Window::processInput(goof::Camera& camera,GLFWwindow* window )
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		camera.cameraPos -= cameraSpeed * camera.cameraUp;
 }
+
