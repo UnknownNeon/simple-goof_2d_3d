@@ -9,17 +9,25 @@ goof::Entity::Entity() : size(glm::vec3(50.f)) ,entity_position_init(glm::vec3(0
 {
 }
 
-goof::Entity::Entity(float x, float y, float z) : size(glm::vec3(50.f))
-{
-	entity_position_init = glm::vec3(x, y, z);
-}
-
-void goof::Entity::update_pos(float x, float y, float z, Shader& sha)
+void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 {
 	entity_position = glm::vec3(x, y, z);
-	follow_camera.camera_Pos = entity_position ;
+	follow_camera.camera_Pos =  glm::vec3(entity_position.x, entity_position.y , entity_position.z - 1.f);
 
 	gf_render::Draw(player_sprite, goof::BLUE, entity_position + entity_position_init, sha, size);
 	sha.setMat4("view", follow_camera.follow_lookAt());
 }
 
+goof::character2d::character2d()
+{
+}
+
+goof::character2d::~character2d()
+{
+}
+
+goof::character2d::character2d(float x, float y, float z) 
+{
+	size = glm::vec3(50.f);
+	entity_position_init = glm::vec3(x, y, z);
+}
