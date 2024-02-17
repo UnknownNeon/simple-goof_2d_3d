@@ -7,8 +7,6 @@ namespace goof {
 
 	class Entity {
 	public:
-		gf_render::Rect player_sprite;
-
 		goof::Camera follow_camera;
 
 		glm::vec3 entity_position = glm::vec3(0.0f,0.0f,0.0f);
@@ -23,11 +21,25 @@ namespace goof {
 
 	class character2d : public Entity {
 
+		gf_render::Rect player_sprite;
+
 	public:
+
 		character2d();
 		~character2d();
 
 		character2d(float x, float y, float z);
+		void update_pos(float x, float y, float z, Shader& shader);
+	};
+
+	class character3d : public Entity {
+
+		gf_render::Cube player_sprite;
+
+	public:
+		character3d();
+		~character3d();
+
 		void update_pos(float x, float y, float z, Shader& shader);
 	};
 }

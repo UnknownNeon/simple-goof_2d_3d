@@ -27,8 +27,8 @@ void goof::run()
 	gf_render::Cube cube;
  
 	//goof::Camera camera;
-	goof::character2d player(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
-
+	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
+	goof::character3d player;
 	//IMGUI STATES:
 	goof::IMGUI::Init(window.getWindow());
 	static bool show_wireframe = false;
