@@ -20,7 +20,7 @@ void goof::run()
 	sha.load_shader("dep/basic.vert");
 	sha.load_shader("dep/basic.frag");
 	sha.init_and_use_shader();
-	sha.setColor(goof::RED);
+	//sha.setColor(goof::RED);
 
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
@@ -88,8 +88,9 @@ void goof::run()
 			if (ImGui::Button("Reset Camera"))
 				player.follow_camera.reset_camera();
 
-			goof::IMGUI::render_primitives(triangle,sha);
-			goof::IMGUI::render_primitives(cube, sha);
+			/*goof::IMGUI::render_primitives(triangle,sha);
+			goof::IMGUI::render_primitives(cube, sha);*/
+
 			goof::IMGUI::render_primitives(rect, sha);
 
 
@@ -167,13 +168,16 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 		//scaling
 		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0.f , (float)W_WIDTH);
 
-		ImGui::SameLine();
-		if (ImGui::Button(("Delete" + cube.name + temp).c_str())) {
-			delete_flags[n] = true;
-		}
+		//ImGui::SameLine();
+		
 		//color change:
 		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index[n]));
 		//colorend
+
+		if (ImGui::Button(("Delete " + cube.name +" "+ temp).c_str())) {
+			delete_flags[n] = true;
+		}
+
 		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n]);
 	}
 

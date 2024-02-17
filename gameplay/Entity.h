@@ -12,7 +12,7 @@ namespace goof {
 		goof::Camera follow_camera;
 		glm::vec3 entity_position = glm::vec3(0.0f,0.0f,0.0f);
 		glm::vec3 entity_position_init;
-
+		glm::vec3 size;
 	public:
 		Entity();
 		~Entity();
