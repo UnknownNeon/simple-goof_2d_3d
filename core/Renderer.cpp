@@ -95,26 +95,22 @@ gf_render::Triangle::~Triangle()
 gf_render::Rect::Rect()
 {
     set_name(name);
-    //float vertices[] = {
-    //0.5f, 0.5f, 0.0f,       // top right
-    //0.5f, -0.5f, 0.0f,      // bottom right
-    //-0.5f, -0.5f, 0.0f,     // bottom left
-    //-0.5f, 0.5f, 0.0f       // top left
-    //};
+
+    goof::Texture2D tex;
+    tex.Init("dep/tex1.png");
 
     float vertices[] = {
-         0.0f, 1.0f, 0.0f,
-         1.0f, 0.0f, 0.0f,
-         0.0f, 0.0f, 0.0f,
-         0.0f, 1.0f, 0.0f,
-         1.0f, 1.0f, 0.0f,
-         1.0f, 0.0f, 0.0f
+        //pos              //tex         
+         1.0f, 0.0f, 0.0f, 1.0f, 1.0f,      //top right    1
+         1.0f, 1.0f, 0.0f, 1.0f, 0.0f,     //bottom right 3
+         0.0f, 1.0f, 0.0f, 0.0f, 0.0f,      //bottom left  0
+         0.0f, 0.0f, 0.0f, 0.0f, 1.0f     //top left     2
     };
 
-    //unsigned int indices[] = {  // note that we start from 0!
-    //0, 1, 2,                    // first triangle
-    //2, 3, 0                     // second triangle
-    //};
+    unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,                    // first triangle
+    1, 2, 3                     // second triangle
+    };
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -123,14 +119,16 @@ gf_render::Rect::Rect()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    /*glGenBuffers(1, &EBO);
+    glGenBuffers(1, &EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

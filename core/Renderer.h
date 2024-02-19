@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include "Texture.h"
 
 namespace gf_render {
 

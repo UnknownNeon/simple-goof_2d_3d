@@ -139,6 +139,7 @@
     <ClCompile Include="core\Engine.cpp" />
     <ClCompile Include="core\Renderer.cpp" />
     <ClCompile Include="core\Shader.cpp" />
+    <ClCompile Include="core\Texture.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="dep\imgui\imgui.cpp" />
     <ClCompile Include="dep\imgui\imgui_demo.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="dep\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="dep\imgui\imgui_tables.cpp" />
     <ClCompile Include="dep\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="dep\stb_image\stb_image.cpp" />
     <ClCompile Include="gameplay\Entity.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
@@ -156,6 +158,7 @@
     <ClInclude Include="core\Engine.h" />
     <ClInclude Include="core\Renderer.h" />
     <ClInclude Include="core\Shader.h" />
+    <ClInclude Include="core\Texture.h" />
     <ClInclude Include="core\Util.h" />
     <ClInclude Include="core\Window.h" />
     <ClInclude Include="dep\imgui\imconfig.h" />
@@ -167,12 +170,16 @@
     <ClInclude Include="dep\imgui\imstb_rectpack.h" />
     <ClInclude Include="dep\imgui\imstb_textedit.h" />
     <ClInclude Include="dep\imgui\imstb_truetype.h" />
+    <ClInclude Include="dep\stb_image\stb_image.h" />
     <ClInclude Include="gameplay\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dep\basic.frag" />
     <None Include="dep\basic.vert" />
     <None Include="dep\bs.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dep\tex1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
