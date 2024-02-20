@@ -17,6 +17,6 @@ namespace goof {
 	namespace IMGUI {
 		void Init(GLFWwindow* The_Window);
 		void Destroy();
-		void render_primitives(gf_render::shapes& shape,Shader& sha);
+		void render_primitives(gf_render::shapes& shape,Shader& sha, goof::Texture2D* tex=nullptr);
 	}
 }

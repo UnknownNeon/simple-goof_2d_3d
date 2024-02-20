@@ -23,11 +23,15 @@ void goof::run()
 
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
+	gf_render::Rect rect1;
+	rect1.set_name("rect2");
 	gf_render::Cube cube;
  
 	goof::Texture2D tex;
 	tex.Init("dep/tex1.png");
 	tex.use(sha);
+	goof::Texture2D tex1;
+	tex1.Init("dep/tex2.png");
 
 	//goof::Camera camera;
 	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
@@ -92,10 +96,11 @@ void goof::run()
 			if (ImGui::Button("Reset Camera"))
 				player.follow_camera.reset_camera();
 
-			//goof::IMGUI::render_primitives(triangle,sha);
-			goof::IMGUI::render_primitives(cube, sha);
 			goof::IMGUI::render_primitives(triangle, sha);
-			goof::IMGUI::render_primitives(rect, sha);
+			goof::IMGUI::render_primitives(rect, sha, &tex);
+			goof::IMGUI::render_primitives(rect1, sha, &tex1);
+			goof::IMGUI::render_primitives(cube, sha, &tex);
+			//tex1.use(sha);
 
 
 
@@ -117,6 +122,7 @@ void goof::run()
 
 void goof::IMGUI::Init(GLFWwindow* the_Window)
 {
+	
 	const char* glsl_version = "#version 330";
 
 	ImGui::CreateContext();
@@ -134,7 +140,7 @@ void goof::IMGUI::Destroy()
 	ImGui::DestroyContext();
 }
 
-void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
+void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::Texture2D* tex)
 {
 
 	if (ImGui::Button(("Add " + cube.name).c_str())) {
@@ -181,9 +187,8 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 		if (ImGui::Button(("Delete " + cube.name +" "+ temp).c_str())) {
 			delete_flags[n] = true;
 		}
-		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n]);
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n],tex);
 	}
-
 
 	if (cube.loc_vec_shape.size() != 0)
 		ImGui::End();

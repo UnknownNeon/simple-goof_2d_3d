@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
 //Draw is called multiple times therefore no heavy calcs.
-void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale)
+void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale, goof::Texture2D* tex)
 {
  
     if (shader.getShaderID() != -1) {
@@ -9,6 +9,10 @@ void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shade
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, Position);
         shader.setMat4("model", glm::scale(model,Scale));
+    }
+
+    if (tex != nullptr) {
+        tex->use(shader);
     }
 
     if (COLOUR == nullptr) {
@@ -28,7 +32,7 @@ void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shade
     else{ 
         shader.setColor(COLOUR);
 
-               if (tri.getEBO() != 0) {
+        if (tri.getEBO() != 0) {
             glBindVertexArray(tri.getVAO());
             glDrawElements(GL_TRIANGLES, tri.getSize_Vertices(), GL_UNSIGNED_INT, 0);
             glBindVertexArray(0);
@@ -39,7 +43,8 @@ void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shade
             glBindVertexArray(0);
         }
     }
-    
+    //to reset textures;
+   shader.setBool("isTexture",false);
 
 }
 
@@ -129,6 +134,7 @@ gf_render::Rect::Rect()
 
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
 
     glBindBuffer(GL_TEXTURE_2D, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

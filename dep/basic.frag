@@ -13,7 +13,7 @@ void main()
 {
 vec4 texColor = texture(myTexture, TexCoord) * myColor;
 
-if(isTexture){
+if(isTexture == true){
 FragColor = texColor;
 }
 else

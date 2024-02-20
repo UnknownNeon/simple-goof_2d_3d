@@ -53,7 +53,7 @@ namespace gf_render {
 	void Draw(shapes& tri , const float* COLOR = nullptr,
 					glm::vec3 Postion = glm::vec3(0.0f,0.0f,0.0f),
 					Shader& shader =nullShader,
-					glm::vec3 Scale =glm::vec3(1.0f));
+					glm::vec3 Scale =glm::vec3(1.0f),goof::Texture2D* tex = nullptr);
 
 	void ClearScreen();
 	void setWireframeMode(bool set);
