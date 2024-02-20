@@ -42,6 +42,7 @@ void goof::Texture2D::Init( const char* file_name)
 	}
 
 	stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void goof::Texture2D::use()
@@ -57,4 +58,6 @@ goof::Texture2D::Texture2D() : ID(0)
 
 goof::Texture2D::~Texture2D()
 {
+	ID = 0;
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
