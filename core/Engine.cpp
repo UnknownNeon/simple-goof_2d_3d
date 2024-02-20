@@ -26,9 +26,12 @@ void goof::run()
 	gf_render::Rect rect;
 	gf_render::Cube cube;
  
+	goof::Texture2D tex;
+	tex.Init("dep/tex1.png");
 	//goof::Camera camera;
 	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
 	goof::character3d player;
+
 	//IMGUI STATES:
 	goof::IMGUI::Init(window.getWindow());
 	static bool show_wireframe = false;
@@ -136,7 +139,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 	if (ImGui::Button(("Add " + cube.name).c_str())) {
 
 		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
-		cube.color_index.push_back(glm::vec4(1.f, 0.f, 0.f , 1.f));
+		cube.color_index.push_back(glm::vec4(1.f, 1.f, 1.f , 1.f));
 		cube.object_scale.push_back(glm::vec3(50.f));
 	}
 
@@ -177,7 +180,6 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube,Shader& sha)
 		if (ImGui::Button(("Delete " + cube.name +" "+ temp).c_str())) {
 			delete_flags[n] = true;
 		}
-
 		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n]);
 	}
 

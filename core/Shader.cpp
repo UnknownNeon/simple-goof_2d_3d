@@ -18,6 +18,7 @@ void Shader::load_shader(std::string path_to_file)
 		glShaderSource(fshader, 1, &AShader, NULL);
 		shader_compile_result(fshader);
 	}
+
 	
 }
 
@@ -64,6 +65,7 @@ void Shader::init_and_use_shader()
 	}
 
 	glUseProgram(ID);
+	glEnable(GL_DEPTH_TEST);
 
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
@@ -72,24 +74,12 @@ void Shader::init_and_use_shader()
 	setMat4("model", glm::mat4(1.f));
 	setMat4("projection", glm::mat4(1.f));
 
-	//Getting Uniforms and Initializing to 1;
-	/*	model = glm::rotate(model, glm::radians(-55.0f),
-		glm::vec3(1.0f, 0.0f, 0.0f));*/
-
-	//glm::mat4 model = glm::mat4(1.0f);
-	//glm::mat4 view = glm::mat4(1.0f);
-	//glm::mat4 projection = glm::mat4(1.0f);
-
-	/*glUniformMatrix4fv(glGetUniformLocation(ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(glGetUniformLocation(ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(glGetUniformLocation(ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));*/
 }
 
 
 
 void Shader::setColor(const float COL[])
 {
-
 	int colorLocation = glGetUniformLocation(ID, "myColor");
 	glUniform4fv(colorLocation,1,COL);
 }

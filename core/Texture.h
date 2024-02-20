@@ -14,6 +14,7 @@ namespace goof {
 
 		void Init( const char* file_name);
 		inline unsigned int get_tex2d_id() { return ID; }
+		void use();
 
 	};
 }

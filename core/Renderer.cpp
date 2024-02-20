@@ -3,6 +3,7 @@
 //Draw is called multiple times therefore no heavy calcs.
 void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale)
 {
+ 
     if (shader.getShaderID() != -1) {
 
         glm::mat4 model = glm::mat4(1.0f);
@@ -96,8 +97,7 @@ gf_render::Rect::Rect()
 {
     set_name(name);
 
-    goof::Texture2D tex;
-    tex.Init("dep/tex1.png");
+  
 
     float vertices[] = {
         //pos              //tex         
@@ -130,6 +130,7 @@ gf_render::Rect::Rect()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
+    glBindBuffer(GL_TEXTURE_2D, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     size_vertices = 6;
@@ -147,6 +148,7 @@ gf_render::Rect::~Rect()
 gf_render::Cube::Cube() {
     set_name(name);
 
+ 
     float vertices[] = {
         // positions // normals // texture coords
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
@@ -190,7 +192,6 @@ gf_render::Cube::Cube() {
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -199,9 +200,13 @@ gf_render::Cube::Cube() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    //normals locations 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*) (sizeof(float) * 3) );
+    //texcoords
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(sizeof(float) * 6));
     glEnableVertexAttribArray(1);
+
+    //normals locations 
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*) (sizeof(float) * 3) );
+    glEnableVertexAttribArray(2);
 
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
