@@ -132,5 +132,8 @@
     <Image Include="dep\tex1.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="dep\tex2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
