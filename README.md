@@ -7,5 +7,7 @@ used libs:<br />
 -glad<br />
 -glfw<br />
 -glm (opengl math)<br />
+-stb_image<br />
+<br />
 
 ![image](https://github.com/UnknownNeon/simple-goof_2d_3d/assets/52187026/9a941ee6-2d85-45fb-af47-2cec60a3cb5f)
