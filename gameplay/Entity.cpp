@@ -15,6 +15,7 @@ void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 	follow_camera.camera_Pos =  glm::vec3(entity_position.x, entity_position.y , entity_position.z - 1.f);
 
 	gf_render::Draw(player_sprite, goof::BLUE, entity_position + entity_position_init, sha, size);
+	
 	sha.setMat4("view", follow_camera.follow_lookAt());
 }
 

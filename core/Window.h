@@ -12,6 +12,8 @@
 	#define WORLD_LENGTH 10000
 #endif
 
+#define GOOF_MODE_3D 0
+#define GOOF_MODE_2D 1
 
 #include <iostream>
 #include "Camera.h"
@@ -26,11 +28,14 @@ class _Window {
 		_Window& operator=(_Window&& other) = delete;
 		_Window& operator=(const _Window& other) = delete;
 
+		static glm::vec3 direction;
+
 	private:
+
 		bool toggle = false;
 		//Callbacks
 		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
+		static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 	public:
 		_Window();
@@ -38,9 +43,10 @@ class _Window {
 
 		inline GLFWwindow* getWindow() { return GL_WINDOW; }
 
-		void processInput(goof::Camera& camera,GLFWwindow* window = nullptr);
+		void processInput(goof::Camera& camera, int mode = GOOF_MODE_2D, GLFWwindow* window = nullptr);
 		void processInput();
 		void swap_and_pollevents();
+
 		bool isWindowOpen();
 };
 

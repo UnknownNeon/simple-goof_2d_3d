@@ -23,8 +23,10 @@ void goof::run()
 
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
+
 	gf_render::Rect rect1;
-	rect1.set_name("rect2");
+	rect1.set_name("rect1");
+	
 	gf_render::Cube cube;
  
 	goof::Texture2D tex;
@@ -34,13 +36,14 @@ void goof::run()
 	tex1.Init("dep/tex2.png");
 
 	//goof::Camera camera;
-	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
-	goof::character3d player;
+	goof::character2d player2d(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
+	goof::character3d player3d;
 
 	//IMGUI STATES:
 	goof::IMGUI::Init(window.getWindow());
 	static bool show_wireframe = false;
 	static bool view_mode = false;
+	static bool possess_camera = false;
 
 	const char* items[2] = {  "Prespective [3D]", "Orthographic [2D]" };
 	static const char* current_item = items[1];
@@ -53,9 +56,16 @@ void goof::run()
 
 		gf_render::ClearScreen();
 
-		window.processInput(player.follow_camera);
-		player.update_pos(player.follow_camera.cameraPos.x, -player.follow_camera.cameraPos.y, player.follow_camera.cameraPos.z, sha);
-
+		if (possess_camera && current_item == items[1]) {
+			window.processInput(player2d.follow_camera);
+			player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha);
+		}
+		if (possess_camera && current_item == items[0]) {
+			window.processInput(player3d.follow_camera,GOOF_MODE_3D);
+			player3d.update_pos(player3d.follow_camera.cameraPos.x, player3d.follow_camera.cameraPos.y, player3d.follow_camera.cameraPos.z, sha);
+		}
+		
+		
 
 		//dearimgui
 		ImGui_ImplOpenGL3_NewFrame();
@@ -68,7 +78,10 @@ void goof::run()
 			ImGui::Begin("Debug window game....");                        
 
 			ImGui::Text("Graphics Settings : ");              
-			ImGui::Checkbox("Show Wireframe", &show_wireframe);      
+			ImGui::Checkbox("Show Wireframe", &show_wireframe);  
+			ImGui::Checkbox("Possess the camera", &possess_camera);
+			if(!possess_camera)
+				ImGui::Text("Posess the camera to move the player .");
 			gf_render::setWireframeMode(show_wireframe);
 
 			
@@ -93,8 +106,10 @@ void goof::run()
 			//@TODO Impelememting saving and loading states
 			//if (ImGui::Button("Save to file"));
 
-			if (ImGui::Button("Reset Camera"))
-				player.follow_camera.reset_camera();
+			if (ImGui::Button("Reset Camera")) {
+				player2d.follow_camera.reset_camera();
+				player3d.follow_camera.reset_camera();
+			}
 
 			goof::IMGUI::render_primitives(triangle, sha);
 			goof::IMGUI::render_primitives(rect, sha, &tex);
