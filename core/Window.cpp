@@ -100,6 +100,14 @@ bool _Window::isWindowOpen()
 	return !glfwWindowShouldClose(GL_WINDOW);
 }
 
+void _Window::set_cursor_lock(bool ch)
+{
+	if(ch)
+	glfwSetInputMode(GL_WINDOW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	else
+	glfwSetInputMode(GL_WINDOW, GLFW_CURSOR,GLFW_CURSOR_NORMAL);
+}
+
 
 void  _Window::processInput(goof::Camera& camera,int mode ,GLFWwindow* window )
 {
@@ -123,7 +131,6 @@ void  _Window::processInput(goof::Camera& camera,int mode ,GLFWwindow* window )
 	if (mode == GOOF_MODE_3D) {
 		camera.cameraFront = direction;
 	}
-
 
 	float cameraSpeed = 1.f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)

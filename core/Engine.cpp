@@ -44,6 +44,7 @@ void goof::run()
 	static bool show_wireframe = false;
 	static bool view_mode = false;
 	static bool possess_camera = false;
+	static bool cursor_lock = false;
 
 	const char* items[2] = {  "Prespective [3D]", "Orthographic [2D]" };
 	static const char* current_item = items[1];
@@ -64,7 +65,7 @@ void goof::run()
 			window.processInput(player3d.follow_camera,GOOF_MODE_3D);
 			player3d.update_pos(player3d.follow_camera.cameraPos.x, player3d.follow_camera.cameraPos.y, player3d.follow_camera.cameraPos.z, sha);
 		}
-		
+		window.set_cursor_lock(cursor_lock);
 		
 
 		//dearimgui
@@ -80,6 +81,7 @@ void goof::run()
 			ImGui::Text("Graphics Settings : ");              
 			ImGui::Checkbox("Show Wireframe", &show_wireframe);  
 			ImGui::Checkbox("Possess the camera", &possess_camera);
+			ImGui::Checkbox("Cursor lock", &cursor_lock);
 			if(!possess_camera)
 				ImGui::Text("Posess the camera to move the player .");
 			gf_render::setWireframeMode(show_wireframe);

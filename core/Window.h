@@ -46,7 +46,7 @@ class _Window {
 		void processInput(goof::Camera& camera, int mode = GOOF_MODE_2D, GLFWwindow* window = nullptr);
 		void processInput();
 		void swap_and_pollevents();
-
+		void set_cursor_lock(bool ch);
 		bool isWindowOpen();
 };
 
