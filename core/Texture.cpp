@@ -45,8 +45,9 @@ void goof::Texture2D::Init( const char* file_name)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void goof::Texture2D::use()
+void goof::Texture2D::use(Shader& sha)
 {
+	sha.setBool("isTexture", true);
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 

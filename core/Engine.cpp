@@ -27,7 +27,8 @@ void goof::run()
  
 	goof::Texture2D tex;
 	tex.Init("dep/tex1.png");
-	tex.use();
+	tex.use(sha);
+
 	//goof::Camera camera;
 	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
 	goof::character3d player;
