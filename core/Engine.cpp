@@ -20,14 +20,13 @@ void goof::run()
 	sha.load_shader("dep/basic.vert");
 	sha.load_shader("dep/basic.frag");
 	sha.init_and_use_shader();
-	//sha.setColor(goof::RED);
 
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
 	gf_render::Cube cube;
  
-	goof::Texture2D tex;
-	tex.Init("dep/tex1.png");
+	//goof::Texture2D tex;
+	//tex.Init("dep/tex1.png");
 	//goof::Camera camera;
 	goof::character2d player1(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
 	goof::character3d player;
@@ -93,7 +92,7 @@ void goof::run()
 
 			//goof::IMGUI::render_primitives(triangle,sha);
 			goof::IMGUI::render_primitives(cube, sha);
-
+			goof::IMGUI::render_primitives(triangle, sha);
 			goof::IMGUI::render_primitives(rect, sha);
 
 

@@ -10,5 +10,13 @@ in vec2 TexCoord;
 
 void main()
 {
-FragColor = texture(myTexture, TexCoord) * myColor;
+vec4 texColor = texture(myTexture, TexCoord) * myColor;
+
+if(texColor == vec4(0.0)){
+FragColor = texColor;
+}
+else
+{
+FragColor = myColor;
+}
 }
