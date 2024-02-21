@@ -181,6 +181,7 @@
   <ItemGroup>
     <Image Include="dep\tex1.png" />
     <Image Include="dep\tex2.png" />
+    <Image Include="dep\tex3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

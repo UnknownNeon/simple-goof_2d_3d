@@ -25,15 +25,17 @@ void goof::run()
 	gf_render::Rect rect;
 
 	gf_render::Rect rect1;
-	rect1.set_name("rect1");
+	rect1.set_name("Background1");
 	
 	gf_render::Cube cube;
  
-	goof::Texture2D tex;
-	tex.Init("dep/tex1.png");
-	tex.use(sha);
 	goof::Texture2D tex1;
-	tex1.Init("dep/tex2.png");
+	tex1.Init("dep/tex1.png");
+	//tex.use(sha);
+	goof::Texture2D tex2;
+	tex2.Init("dep/tex2.png");
+	goof::Texture2D tex3;
+	tex3.Init("dep/tex3.png");
 
 	//goof::Camera camera;
 	goof::character2d player2d(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
@@ -114,9 +116,9 @@ void goof::run()
 			}
 
 			goof::IMGUI::render_primitives(triangle, sha);
-			goof::IMGUI::render_primitives(rect, sha, &tex);
-			goof::IMGUI::render_primitives(rect1, sha, &tex1);
-			goof::IMGUI::render_primitives(cube, sha, &tex);
+			goof::IMGUI::render_primitives(rect, sha, &tex1);
+			goof::IMGUI::render_primitives(rect1, sha, &tex2);
+			goof::IMGUI::render_primitives(cube, sha, &tex3);
 			//tex1.use(sha);
 
 
