@@ -108,7 +108,15 @@ void goof::run()
 			goof::IMGUI::render_primitives(rect, sha);
 			goof::IMGUI::render_primitives(cube, sha);
 
-			////////////////////////////////////////////////////////////SAVING TO FILE 
+
+			//////////////////////////////////
+			//
+			//
+			//	SAVING AND LOADING start
+			//
+			//
+			//
+			/////////////////////////////////////
 			if (ImGui::Button("Save files")) {
 
 				std::ofstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
@@ -172,6 +180,13 @@ void goof::run()
 				}
 			}
 			//////////////////////////////////
+			//
+			//
+			//	SAVING AND LOADING END
+			//
+			//
+			//
+			/////////////////////////////////////
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
