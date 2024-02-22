@@ -13,12 +13,18 @@ namespace gf_render {
 		int size_vertices = 0;
 
 	public:
+	
+		goof::Texture2D tex;
+		static unsigned int primitive_counter;
+		bool verify_texture_presence = false;
+
 		shapes() = default;
 		std::string name = "shape";
-
-		std::vector<glm::vec3> loc_vec_shape;
+		
 		std::vector<glm::vec3>::iterator erase_iter;
 
+
+		std::vector<glm::vec3> loc_vec_shape;
 		std::vector<glm::vec4> color_index;
 		std::vector<glm::vec3> object_scale;
 
@@ -26,7 +32,10 @@ namespace gf_render {
 		inline unsigned int getVAO() { return VAO; };
 		inline unsigned int getEBO() { return EBO; };
 		inline unsigned int getSize_Vertices() { return size_vertices; };
-		inline void set_name(std::string name) { this->name = name; }
+		inline void set_name(std::string name) { this->name = name; };
+		inline void set_texture(const char* path) { tex.Init(path); verify_texture_presence = true; }
+	
+
 	};
 
 	class Triangle : public shapes {

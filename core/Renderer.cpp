@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+unsigned int gf_render::shapes::primitive_counter = 0;
+
 //Draw is called multiple times therefore no heavy calcs.
 void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale, goof::Texture2D* tex)
 {
@@ -9,10 +11,12 @@ void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shade
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, Position);
         shader.setMat4("model", glm::scale(model,Scale));
-    }
 
-    if (tex != nullptr) {
-        tex->use(shader);
+        if (tex != nullptr) {
+            tex->use(shader);
+        }
+        if(tex == nullptr && tri.verify_texture_presence)
+            tri.tex.use(shader);
     }
 
     if (COLOUR == nullptr) {
@@ -68,6 +72,8 @@ void gf_render::setWireframeMode(bool set)
 
 gf_render::Triangle::Triangle()
 {
+    primitive_counter++;
+
     set_name(name);
 
     float vertices[] = {
@@ -101,7 +107,7 @@ gf_render::Triangle::~Triangle()
 gf_render::Rect::Rect()
 {
     set_name(name);
-
+    primitive_counter++;
   
 
     float vertices[] = {
@@ -153,7 +159,7 @@ gf_render::Rect::~Rect()
 
 gf_render::Cube::Cube() {
     set_name(name);
-
+    primitive_counter++;
  
     float vertices[] = {
         // positions // normals // texture coords

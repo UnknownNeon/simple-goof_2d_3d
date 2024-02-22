@@ -23,19 +23,11 @@ void goof::run()
 
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
-
+	rect.set_texture("dep/tex1.png");
 	gf_render::Rect rect1;
 	rect1.set_name("Background1");
-	
 	gf_render::Cube cube;
- 
-	goof::Texture2D tex1;
-	tex1.Init("dep/tex1.png");
-	//tex.use(sha);
-	goof::Texture2D tex2;
-	tex2.Init("dep/tex2.png");
-	goof::Texture2D tex3;
-	tex3.Init("dep/tex3.png");
+	cube.set_texture("dep/tex3.png");
 
 	//goof::Camera camera;
 	goof::character2d player2d(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
@@ -51,7 +43,6 @@ void goof::run()
 	const char* items[2] = {  "Prespective [3D]", "Orthographic [2D]" };
 	static const char* current_item = items[1];
 
-	//imgui
 	/////////////////////GAAAAAAAAAAAAAAME LOOOOOOOOOOOOOOOOOOOOOOOOOOP//////////////////////////////////////
 
 	while (window.isWindowOpen())
@@ -107,21 +98,80 @@ void goof::run()
 			if (current_item == items[1])
 				goof::setViewMode(sha, orthographic);
 
-			//@TODO Impelememting saving and loading states
-			//if (ImGui::Button("Save to file"));
 
 			if (ImGui::Button("Reset Camera")) {
 				player2d.follow_camera.reset_camera();
 				player3d.follow_camera.reset_camera();
 			}
 
-			goof::IMGUI::render_primitives(triangle, sha);
-			goof::IMGUI::render_primitives(rect, sha, &tex1);
-			goof::IMGUI::render_primitives(rect1, sha, &tex2);
-			goof::IMGUI::render_primitives(cube, sha, &tex3);
-			//tex1.use(sha);
+			goof::IMGUI::render_primitives(triangle,sha);
+			goof::IMGUI::render_primitives(rect, sha);
+			goof::IMGUI::render_primitives(cube, sha);
 
+			////////////////////////////////////////////////////////////SAVING TO FILE 
+			if (ImGui::Button("Save files")) {
 
+				std::ofstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
+				std::ofstream file2("dep/rect.dat", std::ios::binary);
+				std::ofstream file3("dep/cube.dat", std::ios::binary);
+
+				if (file1.is_open()) {
+					file1.write(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+					file1.close();
+				}
+				else {
+					// Handle error: Unable to open file for writing
+					std::cerr << "Error: Unable to open rect file for writing.\n";
+				}
+				if (file2.is_open()) {
+					file2.write(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+					file2.close();
+				}
+				else {
+					// Handle error: Unable to open file for writing
+					std::cerr << "Error: Unable to open rect file for writing.\n";
+				}
+				if (file3.is_open()) {
+					file3.write(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+					file3.close();
+				}
+				else {
+					// Handle error: Unable to open file for writing
+					std::cerr << "Error: Unable to open cube  file for writing.\n";
+				}
+			}
+			if (ImGui::Button("Load files")) {
+
+				std::ifstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
+				std::ifstream file2("dep/rect.dat", std::ios::binary); // Open file in binary mode
+				std::ifstream file3("dep/cube.dat", std::ios::binary); // Open file in binary mode
+
+				if (file1.is_open()) {
+					file1.read(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+					file1.close();
+				}
+				else {
+					// Handle error: Unable to open file for reading
+					std::cerr << "Error: Unable to open triangle file for reading.\n";
+				}
+				if (file2.is_open()) {
+					file2.read(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+					file2.close();
+				}
+				else {
+					// Handle error: Unable to open file for reading
+					std::cerr << "Error: Unable to open rect  file for reading.\n";
+				}
+				if (file3.is_open()) {
+					file3.read(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+					file3.close();
+				}
+				else {
+					// Handle error: Unable to open file for reading
+					std::cerr << "Error: Unable to open file cube for reading.\n";
+				}
+			}
+			//////////////////////////////////
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
@@ -161,7 +211,8 @@ void goof::IMGUI::Destroy()
 
 void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::Texture2D* tex)
 {
-
+	
+	
 	if (ImGui::Button(("Add " + cube.name).c_str())) {
 
 		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
@@ -206,6 +257,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 		if (ImGui::Button(("Delete " + cube.name +" "+ temp).c_str())) {
 			delete_flags[n] = true;
 		}
+
 		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n],tex);
 	}
 
@@ -223,5 +275,14 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 			++cube.erase_iter;
 		}
 	}
+	
+}
+
+
+
+//@TODO Load_level and start play
+
+void goof::play_game(const char* Scene_1)
+{
 	
 }
