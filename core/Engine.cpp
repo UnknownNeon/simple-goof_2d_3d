@@ -118,67 +118,125 @@ void goof::run()
 			//
 			/////////////////////////////////////
 			if (ImGui::Button("Save files")) {
-
-				std::ofstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
+				std::ofstream file1("dep/tri.dat", std::ios::binary);
 				std::ofstream file2("dep/rect.dat", std::ios::binary);
 				std::ofstream file3("dep/cube.dat", std::ios::binary);
-
 				if (file1.is_open()) {
-					file1.write(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+					triangle.serialize(file1);
 					file1.close();
 				}
 				else {
-					// Handle error: Unable to open file for writing
-					std::cerr << "Error: Unable to open rect file for writing.\n";
+					std::cerr << "Error: Unable to open triangle file for writing.\n";
+
 				}
 				if (file2.is_open()) {
-					file2.write(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+					rect.serialize(file2);
 					file2.close();
 				}
 				else {
-					// Handle error: Unable to open file for writing
-					std::cerr << "Error: Unable to open rect file for writing.\n";
+					std::cerr << "Error: Unable to open Rect file for writing.\n";
+
 				}
 				if (file3.is_open()) {
-					file3.write(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+					cube.serialize(file3);
 					file3.close();
 				}
 				else {
-					// Handle error: Unable to open file for writing
-					std::cerr << "Error: Unable to open cube  file for writing.\n";
+					std::cerr << "Error: Unable to open Cube file for writing.\n";
+
 				}
 			}
 			if (ImGui::Button("Load files")) {
-
-				std::ifstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
-				std::ifstream file2("dep/rect.dat", std::ios::binary); // Open file in binary mode
-				std::ifstream file3("dep/cube.dat", std::ios::binary); // Open file in binary mode
-
+				std::ifstream file1("dep/tri.dat", std::ios::binary);
+				std::ifstream file2("dep/rect.dat", std::ios::binary);
+				std::ifstream file3("dep/cube.dat", std::ios::binary);
 				if (file1.is_open()) {
-					file1.read(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+					triangle.deserialize(file1);
 					file1.close();
+					std::cout << "tria loaded: name = " << triangle.name << std::endl;
 				}
 				else {
-					// Handle error: Unable to open file for reading
 					std::cerr << "Error: Unable to open triangle file for reading.\n";
 				}
 				if (file2.is_open()) {
-					file2.read(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+					rect.deserialize(file2);
 					file2.close();
+					std::cout << "Rect loaded: name = " << rect.name << std::endl;
 				}
 				else {
-					// Handle error: Unable to open file for reading
-					std::cerr << "Error: Unable to open rect  file for reading.\n";
+					std::cerr << "Error: Unable to open Rect file for reading.\n";
 				}
 				if (file3.is_open()) {
-					file3.read(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+					cube.deserialize(file3);
 					file3.close();
+					std::cout << "Cube loaded: name = " << cube.name << std::endl;
 				}
 				else {
-					// Handle error: Unable to open file for reading
-					std::cerr << "Error: Unable to open file cube for reading.\n";
+					std::cerr << "Error: Unable to open Cube file for reading.\n";
 				}
 			}
+			//if (ImGui::Button("Save files")) {
+
+			//	std::ofstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
+			//	std::ofstream file2("dep/rect.dat", std::ios::binary);
+			//	std::ofstream file3("dep/cube.dat", std::ios::binary);
+
+			//	if (file1.is_open()) {
+			//		file1.write(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+			//		file1.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for writing
+			//		std::cerr << "Error: Unable to open rect file for writing.\n";
+			//	}
+			//	if (file2.is_open()) {
+			//		file2.write(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+			//		file2.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for writing
+			//		std::cerr << "Error: Unable to open rect file for writing.\n";
+			//	}
+			//	if (file3.is_open()) {
+			//		file3.write(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+			//		file3.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for writing
+			//		std::cerr << "Error: Unable to open cube  file for writing.\n";
+			//	}
+			//}
+			//if (ImGui::Button("Load files")) {
+
+			//	std::ifstream file1("dep/tri.dat", std::ios::binary); // Open file in binary mode
+			//	std::ifstream file2("dep/rect.dat", std::ios::binary); // Open file in binary mode
+			//	std::ifstream file3("dep/cube.dat", std::ios::binary); // Open file in binary mode
+
+			//	if (file1.is_open()) {
+			//		file1.read(reinterpret_cast<char*>(&triangle), sizeof(triangle)); // Use reinterpret_cast for pointer conversion
+			//		file1.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for reading
+			//		std::cerr << "Error: Unable to open triangle file for reading.\n";
+			//	}
+			//	if (file2.is_open()) {
+			//		file2.read(reinterpret_cast<char*>(&rect), sizeof(rect)); // Use reinterpret_cast for pointer conversion
+			//		file2.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for reading
+			//		std::cerr << "Error: Unable to open rect  file for reading.\n";
+			//	}
+			//	if (file3.is_open()) {
+			//		file3.read(reinterpret_cast<char*>(&cube), sizeof(cube)); // Use reinterpret_cast for pointer conversion
+			//		file3.close();
+			//	}
+			//	else {
+			//		// Handle error: Unable to open file for reading
+			//		std::cerr << "Error: Unable to open file cube for reading.\n";
+			//	}
+			//}
 			//////////////////////////////////
 			//
 			//

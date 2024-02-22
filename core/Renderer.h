@@ -8,6 +8,22 @@ namespace gf_render {
 
 	class shapes {
 
+	private:
+		template<typename T>
+		void serializeVector(std::ostream& out, const std::vector<T>& vec) const {
+			size_t size = vec.size();
+			out.write(reinterpret_cast<const char*>(&size), sizeof(size));
+			out.write(reinterpret_cast<const char*>(vec.data()), size * sizeof(T));
+		}
+
+		template<typename T>
+		void deserializeVector(std::istream& in, std::vector<T>& vec) {
+			size_t size;
+			in.read(reinterpret_cast<char*>(&size), sizeof(size));
+			vec.resize(size);	
+			in.read(reinterpret_cast<char*>(vec.data()), size * sizeof(T));
+		}
+	
 	protected:
 		unsigned int VBO, VAO ,EBO = 0;
 		int size_vertices = 0;
@@ -34,7 +50,19 @@ namespace gf_render {
 		inline unsigned int getSize_Vertices() { return size_vertices; };
 		inline void set_name(std::string name) { this->name = name; };
 		inline void set_texture(const char* path) { tex.Init(path); verify_texture_presence = true; }
-	
+		
+		virtual void serialize(std::ostream& out) const {
+			serializeVector(out, loc_vec_shape);
+			serializeVector(out, color_index);
+			serializeVector(out, object_scale);
+		}
+
+		virtual void deserialize(std::istream& in) {
+			deserializeVector(in, loc_vec_shape);
+			deserializeVector(in, color_index);
+			deserializeVector(in, object_scale);
+		}
+
 
 	};
 
@@ -43,6 +71,14 @@ namespace gf_render {
 		std::string name = "Triangle";
 		Triangle();
 		~Triangle();
+
+		void serialize(std::ostream& out) const override {
+			shapes::serialize(out);
+		}
+
+		void deserialize(std::istream& in) override {
+			shapes::deserialize(in);
+		}
 	};
 
 	class Rect : public shapes {
@@ -50,6 +86,14 @@ namespace gf_render {
 		std::string name = "Rectangle";
 		Rect();
 		~Rect();
+
+		void serialize(std::ostream& out) const override {
+			shapes::serialize(out);
+		}
+
+		void deserialize(std::istream& in) override {
+			shapes::deserialize(in);
+		}
 	};
 
 	class Cube :public shapes {
@@ -57,6 +101,13 @@ namespace gf_render {
 		std::string name = "Cube";
 		Cube();
 		~Cube();
+		void serialize(std::ostream& out) const override {
+			shapes::serialize(out);
+		}
+
+		void deserialize(std::istream& in) override {
+			shapes::deserialize(in);
+		}
 	};
 
 	void Draw(shapes& tri , const float* COLOR = nullptr,
