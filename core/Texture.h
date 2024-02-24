@@ -3,9 +3,20 @@
 
 namespace goof {
 
-	class Texture2D {
+	class TextureManager {
+	public:
+
+		static std::vector<unsigned int> Texture_2D_ID;
+		static std::vector<unsigned int> Texture_3D_ID;
+
+		TextureManager() = default;
+	};
+
+	class Texture2D : public TextureManager {
 		
 		unsigned int ID;
+		unsigned int manager_ID;
+		
 
 	public:
 
@@ -17,4 +28,5 @@ namespace goof {
 		void use(Shader& shader);
 
 	};
+	
 }

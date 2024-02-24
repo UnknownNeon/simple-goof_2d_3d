@@ -1,9 +1,9 @@
 #include "Engine.h"
 
 #include "imgui/imgui.h"
+#include "imgui/imgui_stdlib.h"
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
-
 
 void goof::setViewMode(Shader& shader, glm::mat4 MODE)
 {
@@ -21,13 +21,16 @@ void goof::run()
 	sha.load_shader("dep/basic.frag");
 	sha.init_and_use_shader();
 
+	Texture2D tex;
+	tex.Init("dep/tex1.png");
+	Texture2D tex2;
+	tex.Init("dep/tex2.png");
+	TextureManager manage;
+
 	gf_render::Triangle triangle;
 	gf_render::Rect rect;
-	rect.set_texture("dep/tex1.png");
-	gf_render::Rect rect1;
-	rect1.set_name("Background1");
 	gf_render::Cube cube;
-	cube.set_texture("dep/tex3.png");
+
 
 	//goof::Camera camera;
 	goof::character2d player2d(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
@@ -42,6 +45,7 @@ void goof::run()
 
 	const char* items[2] = {  "Prespective [3D]", "Orthographic [2D]" };
 	static const char* current_item = items[1];
+
 
 	/////////////////////GAAAAAAAAAAAAAAME LOOOOOOOOOOOOOOOOOOOOOOOOOOP//////////////////////////////////////
 
@@ -81,7 +85,7 @@ void goof::run()
 
 			
 			ImGui::Text("[WARNING :] While in orthographic \n dont W or S (Go forward or back)");
-			if (ImGui::BeginCombo("##combo", current_item)) 
+			if (ImGui::BeginCombo("#combo", current_item)) 
 			{
 				for (int n = 0; n < IM_ARRAYSIZE(items); n++)
 				{
@@ -253,6 +257,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 		cube.loc_vec_shape.push_back(glm::vec3(0.f, 0.f, 0.f));
 		cube.color_index.push_back(glm::vec4(1.f, 1.f, 1.f , 1.f));
 		cube.object_scale.push_back(glm::vec3(50.f));
+		cube.tex_per_item.push_back(0);
 	}
 
 	ImGui::SameLine();
@@ -282,18 +287,29 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 		ImGui::SliderFloat((cube.name + temp + "Z").c_str(), &(cube.loc_vec_shape[n].z), 0.f, (float)WORLD_LENGTH);
 		//scaling
 		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0.f , (float)W_WIDTH);
-
+	
 		//ImGui::SameLine();
 		
 		//color change:
 		ImGui::ColorEdit3(("Color" + cube.name + temp).c_str(), glm::value_ptr(cube.color_index[n]));
 		//colorend
 
+		
+		if (ImGui::BeginCombo(("2D Textures" + cube.name + " " + temp).c_str(), cube.tex_per_item[n] == 0 ? "Select a texture" : std::to_string(cube.tex_per_item[n]).c_str())) {
+			for (int i = 0; i < TextureManager::Texture_2D_ID.size(); i++) {
+				bool isSelected = (cube.tex_per_item[n] == i);
+				if (ImGui::Selectable(std::to_string(TextureManager::Texture_2D_ID[i]).c_str(), isSelected))
+					cube.tex_per_item[n] = TextureManager::Texture_2D_ID[i];
+				if (isSelected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
 		if (ImGui::Button(("Delete " + cube.name +" "+ temp).c_str())) {
 			delete_flags[n] = true;
 		}
 
-		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n],tex);
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n],sha,cube.object_scale[n], cube.tex_per_item[n] ,tex);
 	}
 
 	if (cube.loc_vec_shape.size() != 0)
@@ -305,6 +321,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 			cube.erase_iter = cube.loc_vec_shape.erase(cube.erase_iter);
 			cube.color_index.erase(std::next(cube.color_index.begin(), n));
 			cube.object_scale.erase(std::next(cube.object_scale.begin(), n));
+			cube.tex_per_item.erase(std::next(cube.tex_per_item.begin(), n));
 		}
 		else {
 			++cube.erase_iter;
@@ -319,5 +336,59 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 
 void goof::play_game(const char* Scene_1)
 {
-	
+	_Window window;
+
+	Shader sha;
+	sha.load_shader("dep/basic.vert");
+	sha.load_shader("dep/basic.frag");
+	sha.init_and_use_shader();
+
+
+	Texture2D tex;
+	tex.Init("dep/tex1.png");
+	Texture2D tex2;
+	tex.Init("dep/tex2.png");
+
+	gf_render::Triangle triangle;
+	gf_render::Rect rect;
+	gf_render::Cube cube;
+
+
+	goof::character2d player2d(W_HEIGHT / 2, W_WIDTH / 2, 0.0f);
+
+	std::ifstream file1(Scene_1, std::ios::binary);
+	if (file1.is_open()) {
+		triangle.deserialize(file1);
+		rect.deserialize(file1);
+		cube.deserialize(file1);
+		file1.close();
+	}
+	else
+	{
+		std::cerr << "Error: Unable to open file for reading.\n";
+	}
+	while (window.isWindowOpen()) {
+
+
+		gf_render::ClearScreen();
+
+
+		window.processInput(player2d.follow_camera);
+		player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha);
+		goof::setViewMode(sha, orthographic);
+
+		goof::render_game_level_objects(triangle, sha);
+		goof::render_game_level_objects(rect, sha);
+		goof::render_game_level_objects(cube, sha);
+
+		window.swap_and_pollevents();
+	}
+
+}
+
+void goof::render_game_level_objects(gf_render::shapes& cube, Shader& sha, goof::Texture2D* tex)
+{
+	for (int n = 0; n < cube.loc_vec_shape.size(); n++) {
+		gf_render::Draw(cube, glm::value_ptr(cube.color_index[n]), cube.loc_vec_shape[n], sha, cube.object_scale[n], cube.tex_per_item[n],tex);
+	}
 }

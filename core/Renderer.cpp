@@ -3,7 +3,7 @@
 unsigned int gf_render::shapes::primitive_counter = 0;
 
 //Draw is called multiple times therefore no heavy calcs.
-void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale, goof::Texture2D* tex)
+void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shader& shader,glm::vec3 Scale, unsigned int tex_ID,goof::Texture2D* tex)
 {
  
     if (shader.getShaderID() != -1) {
@@ -12,11 +12,18 @@ void gf_render::Draw(shapes& tri, const float* COLOUR, glm::vec3 Position, Shade
         model = glm::translate(model, Position);
         shader.setMat4("model", glm::scale(model,Scale));
 
+        if (tex_ID != 0) {
+            shader.setBool("isTexture", true);
+            glBindTexture(GL_TEXTURE_2D, tex_ID);
+        }
+
         if (tex != nullptr) {
             tex->use(shader);
         }
         if(tex == nullptr && tri.verify_texture_presence)
             tri.tex.use(shader);
+
+
     }
 
     if (COLOUR == nullptr) {

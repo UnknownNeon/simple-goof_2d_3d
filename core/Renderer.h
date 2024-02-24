@@ -43,6 +43,7 @@ namespace gf_render {
 		std::vector<glm::vec3> loc_vec_shape;
 		std::vector<glm::vec4> color_index;
 		std::vector<glm::vec3> object_scale;
+		std::vector<unsigned int> tex_per_item;
 
 		inline unsigned int getVBO() { return VBO; };
 		inline unsigned int getVAO() { return VAO; };
@@ -55,12 +56,14 @@ namespace gf_render {
 			serializeVector(out, loc_vec_shape);
 			serializeVector(out, color_index);
 			serializeVector(out, object_scale);
+			serializeVector(out, tex_per_item);
 		}
 
 		virtual void deserialize(std::istream& in) {
 			deserializeVector(in, loc_vec_shape);
 			deserializeVector(in, color_index);
 			deserializeVector(in, object_scale);
+			deserializeVector(in, tex_per_item);
 		}
 
 
@@ -113,7 +116,9 @@ namespace gf_render {
 	void Draw(shapes& tri , const float* COLOR = nullptr,
 					glm::vec3 Postion = glm::vec3(0.0f,0.0f,0.0f),
 					Shader& shader =nullShader,
-					glm::vec3 Scale =glm::vec3(1.0f),goof::Texture2D* tex = nullptr);
+					glm::vec3 Scale =glm::vec3(1.0f),
+					unsigned int tex_ID = 0,
+					goof::Texture2D* tex = nullptr);
 
 	void ClearScreen();
 	void setWireframeMode(bool set);

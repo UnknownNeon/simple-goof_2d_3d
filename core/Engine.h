@@ -27,4 +27,5 @@ namespace goof {
 namespace goof {
 
 	void play_game(const char* Scene_1);
+	void render_game_level_objects(gf_render::shapes& cube, Shader& sha, goof::Texture2D* textex = nullptr);
 }

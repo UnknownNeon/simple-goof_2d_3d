@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 #include <stb_image/stb_image.h>
+std::vector<unsigned int> goof::TextureManager::Texture_2D_ID;
 
 void goof::Texture2D::Init( const char* file_name)
 {
@@ -43,6 +44,9 @@ void goof::Texture2D::Init( const char* file_name)
 
 	stbi_image_free(data);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Texture_2D_ID.push_back(ID);
+	manager_ID = Texture_2D_ID.size();
 }
 
 void goof::Texture2D::use(Shader& sha)
@@ -51,7 +55,7 @@ void goof::Texture2D::use(Shader& sha)
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 
-goof::Texture2D::Texture2D() : ID(0)
+goof::Texture2D::Texture2D() : ID(0),manager_ID(0)
 {
 	
 	
@@ -60,5 +64,8 @@ goof::Texture2D::Texture2D() : ID(0)
 goof::Texture2D::~Texture2D()
 {
 	ID = 0;
+	if(manager_ID != 0)
+	Texture_2D_ID.erase(std::next(Texture_2D_ID.begin(),manager_ID - 1));
+	manager_ID = 0;
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

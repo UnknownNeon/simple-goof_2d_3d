@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include<glm/geometric.hpp>
+#include <fstream>
 
 namespace Util {
 
@@ -29,5 +30,13 @@ namespace Util {
             return(s.substr(i + 1, s.length() - i));
         }
         return("");
-    }
+    };
+
+    inline bool exist(std::string PATH)
+    {
+        std::ifstream fin;
+        fin.open(PATH.c_str());
+        fin.close();
+        return bool(fin);
+    };
 }
