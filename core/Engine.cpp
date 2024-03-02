@@ -6,6 +6,7 @@ MADE IN 2024;
 	-Collisions are not imple
 	-Audio is not imple
 	-Player speed is wonky neeed fix (*)
+	-Add input bindings (verrrrrrrrrrrrrry lazzzzzzzzzzzzzy to implement this shit )
 
 */
 

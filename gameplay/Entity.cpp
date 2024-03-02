@@ -11,8 +11,8 @@ goof::Entity::Entity() : size(glm::vec3(50.f)) ,entity_position_init(glm::vec3(0
 
 void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 {
-	entity_position = glm::vec3(x, y, -1.f);
-	follow_camera.camera_Pos =  glm::vec3(entity_position.x, entity_position.y , - 1.f);
+	entity_position = glm::vec3(x, y, 1.f);
+	follow_camera.camera_Pos =  glm::vec3(entity_position.x, entity_position.y , 1.f);
 
 	gf_render::Draw(player_sprite, goof::BLUE, entity_position + entity_position_init, sha, size);
 	
