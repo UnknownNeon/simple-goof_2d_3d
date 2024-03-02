@@ -6,7 +6,7 @@ MADE IN 2024;
 	-Collisions are not imple
 	-Audio is not imple
 	-Player speed is wonky neeed fix (*)
-	-Restrict player from W in Z axis (*)
+
 */
 
 #include "Engine.h"
