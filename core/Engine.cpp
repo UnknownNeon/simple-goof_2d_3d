@@ -1,9 +1,12 @@
 /*
 MADE IN 2024;
-@ TODO
+@ TODO (*) - Priority
 	-Maake a container for game objects here and keep a count 
 	-Load ^ info to save file
-
+	-Collisions are not imple
+	-Audio is not imple
+	-Player speed is wonky neeed fix (*)
+	-Restrict player from W in Z axis (*)
 */
 
 #include "Engine.h"
