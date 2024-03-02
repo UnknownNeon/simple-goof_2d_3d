@@ -1,3 +1,11 @@
+/*
+MADE IN 2024;
+@ TODO
+	-Maake a container for game objects here and keep a count 
+	-Load ^ info to save file
+
+*/
+
 #include "Engine.h"
 
 #include "imgui/imgui.h"
@@ -332,7 +340,7 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 
 
 
-//@TODO Load_level and start play
+//@TODO Load_level and start play - Done 
 
 void goof::play_game(const char* Scene_1)
 {
