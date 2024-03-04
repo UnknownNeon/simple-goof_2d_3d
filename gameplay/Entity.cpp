@@ -30,8 +30,8 @@ bool goof::Entity::doCollisions_with_all(bool state, gf_render::shapes* game_obj
 			}
 		}
 	}
-	stop = count > 0 ? true : false;
-	return stop;
+	is_colliding = count > 0 ? true : false;
+	return is_colliding;
 }
 
 goof::Entity::Entity() : size(glm::vec3(50.f)) ,entity_position_init(glm::vec3(0.f))
@@ -45,7 +45,7 @@ void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 	follow_camera.camera_Pos = glm::vec3(entity_position.x, entity_position.y, 1.f);
 	
 	
-	if (stop) {
+	if (is_colliding) {
 		gf_render::Draw(player_sprite, goof::RED, entity_position + entity_position_init, sha, size);
 	}
 	else

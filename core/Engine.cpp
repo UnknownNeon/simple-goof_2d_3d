@@ -13,6 +13,8 @@ MADE IN 2024;
 	and windwos input with w will return A and D as 1 and -1 
 										 W and S ad 1 and -1 ,
 										 -make INPUT CLASSS               (*)
+
+	COLLISION WITH AN ONJECT IF DETECTED CAN BE HANDLED BY THE USER CODE.
  
 */
 
@@ -72,10 +74,10 @@ void goof::run()
 		gf_render::ClearScreen();
 
 		if (possess_camera && current_item == items[1]) {
-			window.processInput(player2d.follow_camera);
+			window.processInput(player2d.follow_camera); //NEEEEEEEEEED FIXX ! 
 
 			player2d.doCollisions_with_all(true, &rect); //notice
-			player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha);
+			player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha); ///SPAGHETTI CODE FIX THIS ! nned update-pos(x,y ) just that 
 			
 		}
 		if (possess_camera && current_item == items[0]) {

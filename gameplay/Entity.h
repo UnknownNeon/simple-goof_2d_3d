@@ -19,7 +19,8 @@ namespace goof {
 		glm::vec3 size;
 		glm::vec3 temporary_position;
 		
-		bool stop = false;
+		bool is_colliding = false;
+
 		virtual bool doCollisions_with_all(bool state = false, gf_render::shapes* game_object_pointer = nullptr);
 
 	public:
