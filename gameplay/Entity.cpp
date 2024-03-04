@@ -5,17 +5,53 @@ goof::Entity::~Entity()
 }
 
 
+bool goof::Entity::CheckCollisions(gf_render::shapes* toCollide , int index)
+{
+	
+	bool collision_x = (toCollide->loc_vec_shape[index].x + toCollide->object_scale[index].x) >= ((entity_position + entity_position_init).x) 
+							&&
+						((entity_position + entity_position_init).x + size.x >= toCollide->loc_vec_shape[index].x);
+
+	bool collision_y = (toCollide->loc_vec_shape[index].y + toCollide->object_scale[index].y) >= ((entity_position + entity_position_init).y)
+						&&
+					   ((entity_position + entity_position_init).y + size.y >= toCollide->loc_vec_shape[index].y);
+
+	return collision_x && collision_y;
+}
+
+bool goof::Entity::doCollisions_with_all(bool state, gf_render::shapes* game_object_pointer)
+{
+	int count = 0;
+	if (state)
+	{
+		for (int i = 0; i < game_object_pointer->loc_vec_shape.size(); i++) {
+			if (CheckCollisions(game_object_pointer, i)) {
+				count++;
+			}
+		}
+	}
+	stop = count > 0 ? true : false;
+	return stop;
+}
+
 goof::Entity::Entity() : size(glm::vec3(50.f)) ,entity_position_init(glm::vec3(0.f))
 {
 }
 
 void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 {
-	entity_position = glm::vec3(x, y, 1.f);
-	follow_camera.camera_Pos =  glm::vec3(entity_position.x, entity_position.y , 1.f);
 
-	gf_render::Draw(player_sprite, goof::BLUE, entity_position + entity_position_init, sha, size);
+	entity_position = glm::vec3(x, y, 1.f);
+	follow_camera.camera_Pos = glm::vec3(entity_position.x, entity_position.y, 1.f);
 	
+	
+	if (stop) {
+		gf_render::Draw(player_sprite, goof::RED, entity_position + entity_position_init, sha, size);
+	}
+	else
+	{
+		gf_render::Draw(player_sprite, goof::BLUE, entity_position + entity_position_init, sha, size);
+	}
 	sha.setMat4("view", follow_camera.follow_lookAt());
 }
 

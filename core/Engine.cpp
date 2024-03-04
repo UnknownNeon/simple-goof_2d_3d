@@ -3,12 +3,17 @@ MADE IN 2024;
 @ TODO (*) - Priority
 	-Maake a container for game objects here and keep a count 
 	-Load ^ info to save file
-	-Collisions are not imple
+	-Collisions are not imple (implemented wonky *) 
 	-Audio is not imple
 	-Player speed is wonky neeed fix (*)
 	-Add input bindings (verrrrrrrrrrrrrry lazzzzzzzzzzzzzy to implement this shit )
-	-putpixel(x,y); needed (****)
-
+	
+	- URGENT fix line 70 - 81 the window input part
+	i need  updatepos(x,y) where x and y are simply pixel values
+	and windwos input with w will return A and D as 1 and -1 
+										 W and S ad 1 and -1 ,
+										 -make INPUT CLASSS               (*)
+ 
 */
 
 #include "Engine.h"
@@ -44,7 +49,6 @@ void goof::run()
 	gf_render::Rect rect;
 	gf_render::Cube cube;
 
-
 	//goof::Camera camera;
 	goof::character2d player2d(W_HEIGHT/2, W_WIDTH/2 ,0.0f);
 	goof::character3d player3d;
@@ -69,7 +73,10 @@ void goof::run()
 
 		if (possess_camera && current_item == items[1]) {
 			window.processInput(player2d.follow_camera);
+
+			player2d.doCollisions_with_all(true, &rect); //notice
 			player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha);
+			
 		}
 		if (possess_camera && current_item == items[0]) {
 			window.processInput(player3d.follow_camera,GOOF_MODE_3D);

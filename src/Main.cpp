@@ -3,6 +3,6 @@
 
 int main() {
 
-	goof::play_game("dep/save1.dat");
-	//goof::run();
+	//goof::play_game("dep/save1.dat");
+	goof::run();
 }

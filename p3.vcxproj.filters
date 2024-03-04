@@ -128,6 +128,9 @@
     <ClInclude Include="dep\imgui\imgui_stdlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gameplay\Collisions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="dep\basic.vert" />

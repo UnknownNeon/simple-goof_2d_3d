@@ -173,6 +173,7 @@
     <ClInclude Include="dep\imgui\imstb_textedit.h" />
     <ClInclude Include="dep\imgui\imstb_truetype.h" />
     <ClInclude Include="dep\stb_image\stb_image.h" />
+    <ClInclude Include="gameplay\Collisions.h" />
     <ClInclude Include="gameplay\Entity.h" />
   </ItemGroup>
   <ItemGroup>

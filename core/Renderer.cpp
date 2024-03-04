@@ -240,5 +240,3 @@ gf_render::Cube::~Cube() {
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
 }
-
-
