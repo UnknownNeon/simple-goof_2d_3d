@@ -5,7 +5,7 @@ namespace goof {
 
 	class Camera {
 		public:
-			glm::vec3 camera_Pos = glm::vec3(0.0f, 0.0f, 0.0f);
+
 			glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); // x,x,1.0
 			glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 			glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -13,7 +13,7 @@ namespace goof {
 		Camera();
 		~Camera();
 		glm::mat4 lookAt();
-		glm::mat4 follow_lookAt();
+	
 
 		void reset_camera();
 

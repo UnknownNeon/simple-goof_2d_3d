@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "Entity.h"
 #include "GLFW/glfw3.h"
 
 #ifndef W_HEIGHT
@@ -43,7 +44,7 @@ class _Window {
 
 		inline GLFWwindow* getWindow() { return GL_WINDOW; }
 
-		void processInput(goof::Camera& camera, int mode = GOOF_MODE_2D, GLFWwindow* window = nullptr);
+		void processInput(goof::Entity* player, int mode = GOOF_MODE_2D, GLFWwindow* window = nullptr);
 		void processInput();
 		void swap_and_pollevents();
 		void set_cursor_lock(bool ch);

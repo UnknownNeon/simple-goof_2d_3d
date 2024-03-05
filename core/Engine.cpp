@@ -74,15 +74,15 @@ void goof::run()
 		gf_render::ClearScreen();
 
 		if (possess_camera && current_item == items[1]) {
-			window.processInput(player2d.follow_camera); //NEEEEEEEEEED FIXX ! 
 
-			player2d.doCollisions_with_all(true, &rect); //notice
-			player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha); ///SPAGHETTI CODE FIX THIS ! nned update-pos(x,y ) just that 
-			
+			window.processInput(&player2d);
+			player2d.doCollisions_with_all(true, &rect);
+			player2d.update_pos( player2d.right , - player2d.up, 0 , sha);
 		}
 		if (possess_camera && current_item == items[0]) {
-			window.processInput(player3d.follow_camera,GOOF_MODE_3D);
-			player3d.update_pos(player3d.follow_camera.cameraPos.x, player3d.follow_camera.cameraPos.y, player3d.follow_camera.cameraPos.z, sha);
+
+			window.processInput(&player3d,GOOF_MODE_3D);
+			player3d.update_pos(player3d.right ,player3d.up , player3d.forward, sha);
 		}
 		window.set_cursor_lock(cursor_lock);
 		
@@ -126,8 +126,8 @@ void goof::run()
 
 
 			if (ImGui::Button("Reset Camera")) {
-				player2d.follow_camera.reset_camera();
-				player3d.follow_camera.reset_camera();
+				player2d.entity_position = glm::vec3(0.f);
+				player3d.entity_position = glm::vec3(0.f);
 			}
 
 			goof::IMGUI::render_primitives(triangle,sha);
@@ -395,8 +395,10 @@ void goof::play_game(const char* Scene_1)
 		gf_render::ClearScreen();
 
 
-		window.processInput(player2d.follow_camera);
-		player2d.update_pos(player2d.follow_camera.cameraPos.x, -player2d.follow_camera.cameraPos.y, player2d.follow_camera.cameraPos.z, sha);
+		window.processInput(&player2d);
+		player2d.doCollisions_with_all(true, &rect);
+		player2d.update_pos(player2d.right, -player2d.up, 0, sha);
+
 		goof::setViewMode(sha, orthographic);
 
 		goof::render_game_level_objects(triangle, sha);

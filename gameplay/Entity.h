@@ -21,6 +21,11 @@ namespace goof {
 		
 		bool is_colliding = false;
 
+		int up = 0;
+		int right = 0;
+		int forward = 0;
+
+
 		virtual bool doCollisions_with_all(bool state = false, gf_render::shapes* game_object_pointer = nullptr);
 
 	public:

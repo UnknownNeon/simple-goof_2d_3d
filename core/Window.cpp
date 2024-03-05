@@ -109,7 +109,7 @@ void _Window::set_cursor_lock(bool ch)
 }
 
 
-void  _Window::processInput(goof::Camera& camera,int mode ,GLFWwindow* window )
+void  _Window::processInput(goof::Entity * player,int mode ,GLFWwindow* window )
 {
 	if(window == nullptr)
 	window = GL_WINDOW;
@@ -128,22 +128,31 @@ void  _Window::processInput(goof::Camera& camera,int mode ,GLFWwindow* window )
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	if (mode == GOOF_MODE_3D) {
-		camera.cameraFront = direction;
-	}
+	/*if (mode == GOOF_MODE_3D) {
+		player.cameraFront = direction;
+	}*/
 
-	float cameraSpeed = 1.f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.cameraPos += cameraSpeed * camera.cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.cameraPos -= cameraSpeed * camera.cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.cameraPos -= glm::normalize(glm::cross(camera.cameraFront, camera.cameraUp)) * cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.cameraPos += glm::normalize(glm::cross(camera.cameraFront, camera.cameraUp)) * cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		camera.cameraPos += cameraSpeed * camera.cameraUp;
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-		camera.cameraPos -= cameraSpeed * camera.cameraUp;
+		player->up = 1;
+	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		player->up = -1;
+	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		player->right = -1;
+	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		player->right = 1;
+	else if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+		player->forward = 1;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+		player->forward = -1;
+	}
+	else
+	{
+		player->right = 0;
+		player->up = 0;
+		player->forward = 0;
+	}
+		
+
 }
 
