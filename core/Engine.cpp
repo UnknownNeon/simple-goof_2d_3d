@@ -7,12 +7,7 @@ MADE IN 2024;
 	-Audio is not imple
 	-Player speed is wonky neeed fix (*)
 	-Add input bindings (verrrrrrrrrrrrrry lazzzzzzzzzzzzzy to implement this shit )
-	
-	- URGENT fix line 70 - 81 the window input part
-	i need  updatepos(x,y) where x and y are simply pixel values
-	and windwos input with w will return A and D as 1 and -1 
-										 W and S ad 1 and -1 ,
-										 -make INPUT CLASSS               (*)
+	-make INPUT CLASSS   
 
 	COLLISION WITH AN ONJECT IF DETECTED CAN BE HANDLED BY THE USER CODE.
  
@@ -154,33 +149,7 @@ void goof::run()
 				else {
 					std::cerr << "Error: Unable to open save file for writing.\n";
 				}
-				/*std::ofstream file1("dep/tri.dat", std::ios::binary);
-				std::ofstream file2("dep/rect.dat", std::ios::binary);
-				std::ofstream file3("dep/cube.dat", std::ios::binary);
-				if (file1.is_open()) {
-					triangle.serialize(file1);
-					file1.close();
-				}
-				else {
-					std::cerr << "Error: Unable to open triangle file for writing.\n";
-
-				}
-				if (file2.is_open()) {
-					rect.serialize(file2);
-					file2.close();
-				}
-				else {
-					std::cerr << "Error: Unable to open Rect file for writing.\n";
-
-				}
-				if (file3.is_open()) {
-					cube.serialize(file3);
-					file3.close();
-				}
-				else {
-					std::cerr << "Error: Unable to open Cube file for writing.\n";
-
-				}*/
+		
 				ImGui::Text("Files Saved Successfully");
 			}
 			if (ImGui::Button("Load files")) {
@@ -195,34 +164,7 @@ void goof::run()
 				{
 					std::cerr << "Error: Unable to open file for reading.\n";
 				}
-
-				/*std::ifstream file1("dep/tri.dat", std::ios::binary);
-				std::ifstream file2("dep/rect.dat", std::ios::binary);
-				std::ifstream file3("dep/cube.dat", std::ios::binary);
-				if (file1.is_open()) {
-					triangle.deserialize(file1);
-					file1.close();
-					std::cout << "tria loaded: name = " << triangle.name << std::endl;
-				}
-				else {
-					std::cerr << "Error: Unable to open triangle file for reading.\n";
-				}
-				if (file2.is_open()) {
-					rect.deserialize(file2);
-					file2.close();
-					std::cout << "Rect loaded: name = " << rect.name << std::endl;
-				}
-				else {
-					std::cerr << "Error: Unable to open Rect file for reading.\n";
-				}
-				if (file3.is_open()) {
-					cube.deserialize(file3);
-					file3.close();
-					std::cout << "Cube loaded: name = " << cube.name << std::endl;
-				}
-				else {
-					std::cerr << "Error: Unable to open Cube file for reading.\n";
-				}*/
+	
 			}
 
 			//////////////////////////////////
@@ -303,7 +245,6 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 		ImGui::Text("item : %d", n);
 		std::string  temp = std::to_string(n);
 
-		//ImGui::SliderFloat3((cube.name+temp).c_str(), glm::value_ptr(cube.loc_vec_shape[n]), -(float)W_WIDTH,(float)W_WIDTH);
 		ImGui::SliderFloat((cube.name + temp + "X").c_str(), &(cube.loc_vec_shape[n].x),0.f, (float)WORLD_LENGTH);
 		ImGui::SliderFloat((cube.name + temp + "Y").c_str(),&(cube.loc_vec_shape[n].y),0.f, (float)WORLD_LENGTH);
 		ImGui::SliderFloat((cube.name + temp + "Z").c_str(), &(cube.loc_vec_shape[n].z), 0.f, (float)WORLD_LENGTH);
@@ -352,9 +293,6 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 	
 }
 
-
-
-//@TODO Load_level and start play - Done 
 
 void goof::play_game(const char* Scene_1)
 {
