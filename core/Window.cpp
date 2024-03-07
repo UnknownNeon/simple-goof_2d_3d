@@ -136,23 +136,14 @@ void  _Window::processInput(goof::Entity * player,int mode ,GLFWwindow* window )
 		player->up = 1;
 	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		player->up = -1;
-	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	 else
+		 player->up = 0;
+	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		player->right = -1;
-	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	 else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		player->right = 1;
-	else if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-		player->forward = 1;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-		player->forward = -1;
-	}
-	else
-	{
-		player->right = 0;
-		player->up = 0;
-		player->forward = 0;
-	}
-		
+	 else
+		 player->right = 0;	
 
 }
 
