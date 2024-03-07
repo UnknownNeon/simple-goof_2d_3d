@@ -7,7 +7,7 @@ MADE IN 2024;
 	-Audio is not imple
 	-Player speed is wonky neeed fix (*)
 	-Add input bindings (verrrrrrrrrrrrrry lazzzzzzzzzzzzzy to implement this shit )
-	-make INPUT CLASSS   
+	-make INPUT CLASSS (Consider)  
 
 	COLLISION WITH AN ONJECT IF DETECTED CAN BE HANDLED BY THE USER CODE.
  

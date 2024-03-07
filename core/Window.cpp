@@ -145,5 +145,8 @@ void  _Window::processInput(goof::Entity * player,int mode ,GLFWwindow* window )
 	 else
 		 player->right = 0;	
 
+	 //Notice the repetation of the -1 and 1 and 0
+	 //we can make a input class with it having the bindAxis functionality
+
 }
 
