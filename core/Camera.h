@@ -12,9 +12,8 @@ namespace goof {
 	public:
 		Camera();
 		~Camera();
-		glm::mat4 lookAt();
-	
 
+		glm::mat4 lookAt();
 		void reset_camera();
 
 	};

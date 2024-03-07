@@ -128,9 +128,9 @@ void  _Window::processInput(goof::Entity * player,int mode ,GLFWwindow* window )
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	/*if (mode == GOOF_MODE_3D) {
-		player.cameraFront = direction;
-	}*/
+	if (mode == GOOF_MODE_3D) {
+		player->follow_camera.cameraFront = direction;
+	}
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		player->up = 1;

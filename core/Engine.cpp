@@ -77,7 +77,7 @@ void goof::run()
 		if (possess_camera && current_item == items[0]) {
 
 			window.processInput(&player3d,GOOF_MODE_3D);
-			player3d.update_pos(player3d.right ,player3d.up , player3d.forward, sha);
+			player3d.update_pos( -player3d.right , player3d.forward, player3d.up, sha);
 		}
 		window.set_cursor_lock(cursor_lock);
 		

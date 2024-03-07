@@ -79,8 +79,16 @@ goof::character3d::~character3d()
 
 void goof::character3d::update_pos(float x, float y, float z, Shader& sha)
 {
-	entity_position += glm::vec3(x, y, z);
-	follow_camera.cameraPos = glm::vec3(entity_position.x, entity_position.y, entity_position.z);
+	if (z == 1)
+		entity_position += follow_camera.cameraFront;
+	if (z == -1)
+		entity_position -= follow_camera.cameraFront;
+	if (x == 1)
+		entity_position += glm::normalize(glm::cross(follow_camera.cameraUp, follow_camera.cameraFront));
+	if (x == -1)
+		entity_position -= glm::normalize(glm::cross(follow_camera.cameraUp, follow_camera.cameraFront));
+	
+	follow_camera.cameraPos = entity_position;
 
 	//needed to draw player;
 	//gf_render::Draw(player_sprite, goof::BLUE, entity_position , sha, size);
