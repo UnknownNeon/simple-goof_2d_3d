@@ -72,6 +72,7 @@ void goof::run()
 
 			window.processInput(&player2d);
 			player2d.doCollisions_with_all(true, &rect);
+			player2d.is_gravity_enabled = true;
 			player2d.update_pos( player2d.right , - player2d.up, 0 , sha);
 		}
 		if (possess_camera && current_item == items[0]) {
@@ -245,11 +246,11 @@ void goof::IMGUI::render_primitives(gf_render::shapes& cube, Shader& sha, goof::
 		ImGui::Text("item : %d", n);
 		std::string  temp = std::to_string(n);
 
-		ImGui::SliderFloat((cube.name + temp + "X").c_str(), &(cube.loc_vec_shape[n].x),0.f, (float)WORLD_LENGTH);
-		ImGui::SliderFloat((cube.name + temp + "Y").c_str(),&(cube.loc_vec_shape[n].y),0.f, (float)WORLD_LENGTH);
-		ImGui::SliderFloat((cube.name + temp + "Z").c_str(), &(cube.loc_vec_shape[n].z), 0.f, (float)WORLD_LENGTH);
+		ImGui::SliderFloat((cube.name + temp + "X").c_str(), &(cube.loc_vec_shape[n].x), -(float)WORLD_LENGTH, (float)WORLD_LENGTH);
+		ImGui::SliderFloat((cube.name + temp + "Y").c_str(),&(cube.loc_vec_shape[n].y), -(float)WORLD_LENGTH, (float)WORLD_LENGTH);
+		ImGui::SliderFloat((cube.name + temp + "Z").c_str(), &(cube.loc_vec_shape[n].z), -(float)WORLD_LENGTH, (float)WORLD_LENGTH);
 		//scaling
-		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0.f , (float)W_WIDTH);
+		ImGui::SliderFloat3(("size " + cube.name + temp).c_str(), glm::value_ptr(cube.object_scale[n]), 0.f , (float)WORLD_LENGTH);
 	
 		//ImGui::SameLine();
 		

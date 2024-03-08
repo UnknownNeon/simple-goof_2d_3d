@@ -7,9 +7,9 @@ namespace goof {
 
 	class Entity {
 
-	private:
+	protected:
 		bool CheckCollisions(gf_render::shapes* toComparet0, int index);
-
+		float gravity_value = 9.8;
 
 	public:
 		goof::Camera follow_camera;
@@ -20,12 +20,13 @@ namespace goof {
 		glm::vec3 temporary_position;
 		
 		bool is_colliding = false;
+		bool is_gravity_enabled = false;
 
 		int up = 0;
 		int right = 0;
 		int forward = 0;
 
-
+		
 		virtual bool doCollisions_with_all(bool state = false, gf_render::shapes* game_object_pointer = nullptr);
 
 	public:
@@ -45,6 +46,7 @@ namespace goof {
 
 		character2d(float x, float y, float z);
 		void update_pos(float x, float y, float z, Shader& shader);
+		inline void set_gravity(float value) { this->gravity_value = value; }
 	};
 
 	class character3d : public Entity {

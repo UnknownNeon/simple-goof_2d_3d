@@ -42,6 +42,9 @@ void goof::character2d::update_pos(float x, float y, float z, Shader& sha)
 {
 
 	entity_position += glm::vec3(x, y, z);
+	if (is_gravity_enabled)
+		entity_position.y += gravity_value;
+
 	follow_camera.cameraPos = glm::vec3(entity_position.x, entity_position.y, 1.f);
 	
 	
