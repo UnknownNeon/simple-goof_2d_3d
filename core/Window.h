@@ -49,6 +49,7 @@ class _Window {
 		void swap_and_pollevents();
 		void set_cursor_lock(bool ch);
 		bool isWindowOpen();
+
 };
 
 

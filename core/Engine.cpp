@@ -20,6 +20,9 @@ MADE IN 2024;
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
+#include <future>
+#include "InputManager.h"
+
 void goof::setViewMode(Shader& shader, glm::mat4 MODE)
 {
 	shader.setMat4("projection", MODE);
@@ -30,6 +33,7 @@ void goof::run()
 {
 
 	_Window window;
+	InputManager manager(window.getWindow());
 
 	Shader sha;
 	sha.load_shader("dep/basic.vert");
@@ -68,16 +72,16 @@ void goof::run()
 
 		gf_render::ClearScreen();
 
+
 		if (possess_camera && current_item == items[1]) {
 
-			window.processInput(&player2d);
+			//window.processInput(&player2d);
 			player2d.doCollisions_with_all(true, &rect);
-			player2d.is_gravity_enabled = true;
-			player2d.update_pos( player2d.right , - player2d.up, 0 , sha);
+			player2d.update_pos( manager.getAxisX(), -manager.getAxisY(), 0, sha);
 		}
 		if (possess_camera && current_item == items[0]) {
 
-			window.processInput(&player3d,GOOF_MODE_3D);
+			//window.processInput(&player3d,GOOF_MODE_3D);
 			player3d.update_pos( -player3d.right , player3d.forward, player3d.up, sha);
 		}
 		window.set_cursor_lock(cursor_lock);

@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="core\Camera.cpp" />
     <ClCompile Include="core\Engine.cpp" />
+    <ClCompile Include="core\InputManager.cpp" />
     <ClCompile Include="core\Renderer.cpp" />
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Texture.cpp" />
@@ -157,6 +158,8 @@
     <ClInclude Include="core\Camera.h" />
     <ClInclude Include="core\Colors.h" />
     <ClInclude Include="core\Engine.h" />
+    <ClInclude Include="core\InputManager.h" />
+    <ClInclude Include="core\keycodes.h" />
     <ClInclude Include="core\Renderer.h" />
     <ClInclude Include="core\Shader.h" />
     <ClInclude Include="core\Texture.h" />

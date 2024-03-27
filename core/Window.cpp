@@ -108,7 +108,6 @@ void _Window::set_cursor_lock(bool ch)
 	glfwSetInputMode(GL_WINDOW, GLFW_CURSOR,GLFW_CURSOR_NORMAL);
 }
 
-
 void  _Window::processInput(goof::Entity * player,int mode ,GLFWwindow* window )
 {
 	if(window == nullptr)
