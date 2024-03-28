@@ -4,7 +4,7 @@
 
 namespace gf_render {
 
-	static Shader nullShader;
+	static Shader default_shader;
 
 	class shapes {
 
@@ -115,7 +115,7 @@ namespace gf_render {
 
 	void Draw(shapes& tri , const float* COLOR = nullptr,
 					glm::vec3 Postion = glm::vec3(0.0f,0.0f,0.0f),
-					Shader& shader =nullShader,
+					Shader& shader = default_shader,
 					glm::vec3 Scale =glm::vec3(1.0f),
 					unsigned int tex_ID = 0,
 					goof::Texture2D* tex = nullptr);

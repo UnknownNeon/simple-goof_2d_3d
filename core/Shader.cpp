@@ -21,7 +21,19 @@ void Shader::load_shader(std::string path_to_file)
 
 	
 }
+void Shader::load_shader_manual(std::string vertex, std::string fragment) {
 
+	fshader = glCreateShader(GL_FRAGMENT_SHADER);
+	const char* AShader = fragment.c_str();
+	glShaderSource(fshader, 1, &AShader, NULL);
+	shader_compile_result(fshader);
+
+	vshader = glCreateShader(GL_VERTEX_SHADER);
+	AShader = vertex.c_str();
+	glShaderSource(vshader, 1, &AShader, NULL);
+	shader_compile_result(vshader);
+
+}
 
 int Shader::shader_compile_result(unsigned int Shader)
 {

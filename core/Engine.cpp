@@ -75,14 +75,13 @@ void goof::run()
 
 		if (possess_camera && current_item == items[1]) {
 
-			//window.processInput(&player2d);
 			player2d.doCollisions_with_all(true, &rect);
 			player2d.update_pos( manager.getAxisX(), -manager.getAxisY(), 0, sha);
 		}
 		if (possess_camera && current_item == items[0]) {
 
 			//window.processInput(&player3d,GOOF_MODE_3D);
-			player3d.update_pos( -player3d.right , player3d.forward, player3d.up, sha);
+			player3d.update_pos( -manager.getAxisX(), player3d.forward, manager.getAxisY(), sha);
 		}
 		window.set_cursor_lock(cursor_lock);
 		

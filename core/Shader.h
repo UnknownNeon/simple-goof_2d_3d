@@ -13,6 +13,8 @@ class Shader
 
 public:
 	void load_shader(std::string path_to_file);
+	void load_shader_manual(std::string vertex, std::string fragment);
+
 	void init_and_use_shader();
 	void setColor(const float COLOR[]);
 

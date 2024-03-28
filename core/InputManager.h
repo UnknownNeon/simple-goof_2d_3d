@@ -9,7 +9,7 @@ class InputManager {
 	static int right;
 	static int forward;
 
-	bool stopThreads;
+	static bool stopThreads;
 	GLFWwindow* window;
 
 	void parallel_loop1();
